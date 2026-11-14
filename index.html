@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AUIS English Learning Hub</title>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Load Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            auis: {
+              blue: '#002B5B',
+              navy: '#0A1E3C',
+              lightBlue: '#0F4C81',
+              gold: '#D4AF37',
+              goldBright: '#F4B41A',
+              goldLight: '#FBF5E0',
+              white: '#FFFFFF',
+              offwhite: '#F8FAFC'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F8FAFC;
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGold {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5); }
+      50% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .btn-gold-glow {
+      animation: pulseGold 2.5s infinite;
+    }
+
+    .auis-hero-bg {
+      background: radial-gradient(circle at 20% 20%, #0F4C81 0%, #002B5B 55%, #071930 100%);
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 selection:bg-auis-gold selection:text-auis-blue">
+
+  <!-- ==================== 1. WELCOME SPLASH SCREEN ==================== -->
+  <section id="welcome-screen" class="auis-hero-bg min-h-screen flex flex-col items-center justify-center px-4 py-10 text-white relative overflow-hidden">
+    <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full border border-auis-gold/20 pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-[28rem] h-[28rem] rounded-full border-2 border-auis-gold/15 pointer-events-none"></div>
+
+    <div class="max-w-3xl w-full text-center z-10 animate-fade-in flex flex-col items-center">
+      <div class="bg-white/95 backdrop-blur-md px-6 py-4 sm:px-10 sm:py-5 rounded-2xl shadow-2xl border-2 border-auis-gold mb-8 inline-flex items-center justify-center max-w-full">
+        <img 
+          src="https://www.aaicu.org/wp-content/uploads/2024/11/AUIS-trilingual-logo-2-1024x103.png" 
+          alt="American University of Iraq, Sulaimani (AUIS) Logo" 
+          class="h-10 sm:h-14 md:h-16 w-auto object-contain"
+          onerror="this.style.display='none'; document.getElementById('logo-fallback').classList.remove('hidden');"
+        />
+        <div id="logo-fallback" class="hidden text-auis-blue font-extrabold text-xl sm:text-2xl tracking-wider">
+          AUIS • American University of Iraq, Sulaimani
+        </div>
+      </div>
+
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-auis-gold/20 border border-auis-gold/50 text-auis-goldBright text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4">
+        <span>★</span> Interactive Language Learning Arena <span>★</span>
+      </div>
+
+      <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-4 drop-shadow-md">
+        Welcome
+      </h1>
+
+      <p class="text-blue-100 text-base sm:text-lg md:text-xl max-w-xl mx-auto leading-relaxed mb-10 font-normal">
+        Master English vocabulary, grammar, spelling, reading comprehension, and sentence structure through 5 interactive challenges tailored from <span class="text-auis-goldBright font-semibold">Foundation</span> to <span class="text-auis-goldBright font-semibold">Level 4</span>.
+      </p>
+
+      <button 
+        onclick="navigateTo('menu')" 
+        class="btn-gold-glow group relative inline-flex items-center gap-3 bg-gradient-to-r from-auis-gold to-auis-goldBright hover:from-auis-goldBright hover:to-auis-gold text-auis-navy font-extrabold text-lg sm:text-xl px-9 py-4 rounded-2xl shadow-xl transition-all duration-300 transform hover:-translate-y-1 active:scale-95 cursor-pointer"
+      >
+        <span>Start Learning</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </button>
+
+      <p class="mt-12 text-xs sm:text-sm text-blue-200/70">
+        Designed for AUIS English Language Learners • 5 Games • 5 Levels • 10 Questions Each
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header id="app-header" class="hidden sticky top-0 z-40 bg-auis-blue text-white shadow-lg border-b-4 border-auis-gold">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <button onclick="navigateTo('welcome')" class="flex items-center gap-3 text-left group focus:outline-none cursor-pointer" title="Return to Welcome Screen">
+        <div class="bg-white px-3 py-1.5 rounded-xl shadow-sm group-hover:ring-2 group-hover:ring-auis-gold transition">
+          <img 
+            src="https://www.aaicu.org/wp-content/uploads/2024/11/AUIS-trilingual-logo-2-1024x103.png" 
+            alt="AUIS Logo" 
+            class="h-6 sm:h-8 w-auto object-contain"
+            onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');"
+          />
+          <span class="hidden text-auis-blue font-extrabold text-sm">AUIS</span>
+        </div>
+      </button>
+
+      <div id="header-context" class="hidden md:flex items-center gap-2 text-sm font-medium text-blue-100">
+        <span class="text-auis-goldBright font-bold">AUIS English Hub</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button 
+          id="nav-games-btn"
+          onclick="navigateTo('menu')" 
+          class="px-4 py-2 rounded-xl bg-white/10 hover:bg-auis-gold hover:text-auis-navy text-white text-xs sm:text-sm font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+          <span>All Games</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 2. MAIN GAME SELECTION MENU ==================== -->
+  <main id="menu-screen" class="hidden flex-grow max-w-6xl w-full mx-auto px-4 py-8 sm:py-12 animate-fade-in">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <span class="inline-block px-3.5 py-1 rounded-full bg-auis-blue/10 text-auis-blue font-bold text-xs uppercase tracking-wider mb-2">
+        Choose Your Challenge
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-auis-blue mb-3">
+        Select an English Learning Game
+      </h2>
+      <p class="text-slate-600 text-sm sm:text-base">
+        Pick one of the 5 skill-building games below. Each game features 5 progressive levels and 10 questions per level.
+      </p>
+    </div>
+
+    <div id="games-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    </div>
+  </main>
+
+  <!-- ==================== 3. LEVEL SELECTION SCREEN ==================== -->
+  <section id="level-screen" class="hidden flex-grow max-w-4xl w-full mx-auto px-4 py-8 sm:py-12 animate-fade-in">
+    <button onclick="navigateTo('menu')" class="inline-flex items-center gap-2 text-auis-blue hover:text-auis-gold font-semibold text-sm mb-6 transition-colors cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      <span>Back to Game Selection</span>
+    </button>
+
+    <div id="selected-game-banner" class="bg-auis-blue text-white rounded-3xl p-6 sm:p-8 shadow-xl border-b-4 border-auis-gold mb-8 flex flex-col sm:flex-row items-center gap-6">
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-xl sm:text-2xl font-extrabold text-auis-blue">Select Difficulty Level</h3>
+      <p class="text-slate-600 text-sm">Every level contains 10 questions followed by instant grading and mistake explanations.</p>
+    </div>
+
+    <div id="levels-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    </div>
+  </section>
+
+  <!-- ==================== 4. ACTIVE GAMEPLAY ARENA ==================== -->
+  <section id="game-screen" class="hidden flex-grow max-w-4xl w-full mx-auto px-4 py-6 sm:py-10 animate-fade-in">
+    <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-4 sm:p-5 mb-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-2.5">
+          <span id="play-game-badge" class="px-3 py-1 rounded-lg bg-auis-blue text-white text-xs font-bold">Game</span>
+          <span id="play-level-badge" class="px-3 py-1 rounded-lg bg-auis-goldLight text-auis-blue border border-auis-gold text-xs font-bold">Level</span>
+        </div>
+        <div class="flex items-center gap-4 text-sm font-bold">
+          <span class="text-slate-600">Question <span id="q-current" class="text-auis-blue text-base">1</span> / 10</span>
+          <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            Score: <span id="live-score">0</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+        <div id="progress-bar" class="bg-gradient-to-r from-auis-blue to-auis-gold h-full rounded-full transition-all duration-500" style="width: 10%;"></div>
+      </div>
+    </div>
+
+    <div id="question-container" class="bg-white rounded-3xl shadow-xl border border-slate-200/90 p-6 sm:p-8">
+    </div>
+
+    <div id="feedback-banner" class="hidden mt-5 rounded-2xl p-5 border-2 shadow-md animate-fade-in">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-start gap-3">
+          <div id="feedback-icon" class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 font-bold text-lg"></div>
+          <div>
+            <h4 id="feedback-title" class="font-extrabold text-base sm:text-lg"></h4>
+            <p id="feedback-text" class="text-sm mt-0.5"></p>
+          </div>
+        </div>
+        <button 
+          id="next-q-btn" 
+          onclick="nextQuestion()" 
+          class="shrink-0 bg-auis-blue hover:bg-auis-lightBlue text-white font-bold px-6 py-3 rounded-xl shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <span id="next-q-label">Next Question</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. RESULTS & MISTAKE CORRECTION SCREEN ==================== -->
+  <section id="results-screen" class="hidden flex-grow max-w-4xl w-full mx-auto px-4 py-8 sm:py-12 animate-fade-in">
+    <div class="auis-hero-bg text-white rounded-3xl p-6 sm:p-10 shadow-2xl border-b-4 border-auis-gold text-center mb-8">
+      <span id="res-badge" class="inline-block px-4 py-1 rounded-full bg-auis-gold/20 border border-auis-gold text-auis-goldBright text-xs font-bold uppercase tracking-wider mb-3">
+        Challenge Complete
+      </span>
+      <h2 id="res-heading" class="font-serif text-3xl sm:text-4xl font-extrabold mb-2">Great Effort!</h2>
+      <p id="res-sub" class="text-blue-100 text-sm sm:text-base mb-6">Here is your performance summary and full answer review.</p>
+
+      <div class="inline-flex flex-col items-center justify-center w-36 h-36 sm:w-40 sm:h-40 rounded-full bg-white text-auis-blue border-4 border-auis-gold shadow-xl mb-6">
+        <span id="res-score" class="text-4xl sm:text-5xl font-extrabold">0/10</span>
+        <span id="res-percent" class="text-xs sm:text-sm font-bold text-auis-gold uppercase tracking-wider mt-1">0% Score</span>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-2">
+        <button onclick="restartCurrentLevel()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-auis-gold to-auis-goldBright text-auis-navy font-extrabold text-sm shadow-lg hover:opacity-95 transition cursor-pointer">
+          ↻ Play Level Again
+        </button>
+        <button onclick="selectGame(state.currentGameId)" class="px-6 py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/30 font-bold text-sm transition cursor-pointer">
+          Choose Another Level
+        </button>
+        <button onclick="navigateTo('menu')" class="px-6 py-3 rounded-xl bg-white text-auis-blue hover:bg-slate-100 font-bold text-sm shadow transition cursor-pointer">
+          All 5 Games
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 sm:p-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-5 border-b border-slate-200 mb-6">
+        <div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-auis-blue">Answer Review & Corrections</h3>
+          <p class="text-slate-500 text-sm">Review all 10 questions below to learn from any mistakes.</p>
+        </div>
+        <div id="res-counts" class="flex items-center gap-3 text-xs font-bold">
+        </div>
+      </div>
+
+      <div id="review-list" class="space-y-4">
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GAME DATA & ENGINE ==================== -->
+  <script>
+    const GAMES = [
+      {
+        id: 'vocabulary',
+        title: 'Vocabulary Challenge',
+        shortDesc: 'See an English word with a visual clue and choose its exact meaning.',
+        badge: 'Word Power',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+               </svg>`
+      },
+      {
+        id: 'grammar',
+        title: 'Grammar Battle',
+        shortDesc: 'Spot the grammatical mistake in a sentence and choose the right correction.',
+        badge: 'Syntax & Rules',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+               </svg>`
+      },
+      {
+        id: 'spelling',
+        title: 'Spelling Master',
+        shortDesc: 'Complete the English word by accurately filling in its missing letters.',
+        badge: 'Precision',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+               </svg>`
+      },
+      {
+        id: 'reading',
+        title: 'Reading Detective',
+        shortDesc: 'Read short engaging stories and answer 5 comprehension questions per passage.',
+        badge: 'Comprehension',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+               </svg>`
+      },
+      {
+        id: 'scramble',
+        title: 'Sentence Scramble Challenge',
+        shortDesc: 'Rearrange jumbled words into the proper order to build a correct sentence.',
+        badge: 'Word Order',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+               </svg>`
+      }
+    ];
+
+    const LEVELS = [
+      { id: 'foundation', name: 'Level Foundation', tag: 'Starter', desc: 'Essential everyday English words, basic sentence patterns, and core rules.' },
+      { id: 'level1', name: 'Level 1', tag: 'Elementary', desc: 'Common campus & daily situations, simple tenses, and clear short stories.' },
+      { id: 'level2', name: 'Level 2', tag: 'Intermediate', desc: 'Expanded academic vocabulary, compound sentences, and deeper context clues.' },
+      { id: 'level3', name: 'Level 3', tag: 'Upper-Intermediate', desc: 'Complex grammar structures, nuanced meanings, and analytical reading passages.' },
+      { id: 'level4', name: 'Level 4', tag: 'Advanced AUIS', desc: 'University-level academic English, subtle syntax, and advanced comprehension.' }
+    ];
+
+    // --- RANDOMIZED MULTIPLE CHOICE ANSWER BANKS ---
+    const VOCAB_BANK = {
+      foundation: [
+        { word: 'Library', emoji: '📚', options: ['A place where airplanes land', 'A kitchen for baking bread', 'A quiet place to read and borrow books', 'A shop that sells medicine'], answer: 2, exp: 'A library is a room or building containing collections of books for reading or borrowing.' },
+        { word: 'Generous', emoji: '🎁', options: ['Always arriving late', 'Happy to share and give to others', 'Afraid of the dark', 'Very loud and angry'], answer: 1, exp: 'Generous means showing kindness and willingness to give or share.' },
+        { word: 'Journey', emoji: '🧭', options: ['A small meal eaten at night', 'A type of winter coat', 'A difficult math test', 'Traveling from one place to another'], answer: 3, exp: 'A journey is an act of traveling from one place to another.' },
+        { word: 'Ancient', emoji: '🏛️', options: ['Belonging to the very distant past', 'Brand new and shiny', 'Extremely cold', 'Made of soft plastic'], answer: 0, exp: 'Ancient describes something very old from thousands of years ago.' },
+        { word: 'Courage', emoji: '🦁', options: ['Feeling sleepy after lunch', 'Forgetting someone’s name', 'Bravery when facing fear or danger', 'Running very fast'], answer: 2, exp: 'Courage is the ability to do something that frightens you; bravery.' },
+        { word: 'Harvest', emoji: '🌾', options: ['Planting seeds in snow', 'Gathering ripe crops from the fields', 'Painting a wooden fence', 'Cleaning a classroom'], answer: 1, exp: 'Harvest is the process or period of gathering in crops.' },
+        { word: 'Fragile', emoji: '🥚', options: ['Heavy like iron', 'Brightly colored', 'Impossible to lift', 'Easily broken or damaged'], answer: 3, exp: 'Fragile objects (like glass or eggs) break easily if dropped.' },
+        { word: 'Neighbor', emoji: '🏘️', options: ['A person living next door or nearby', 'A famous movie actor', 'A wild mountain animal', 'A school bus driver'], answer: 0, exp: 'A neighbor is someone who lives near or next door to you.' },
+        { word: 'Whisper', emoji: '🤫', options: ['To shout across a stadium', 'To sing on a stage', 'To speak very softly using the breath', 'To laugh loudly'], answer: 2, exp: 'To whisper means speaking very quietly so only someone close can hear.' },
+        { word: 'Curious', emoji: '🔍', options: ['Bored with everything', 'Eager to know or learn something', 'Refusing to listen', 'Tired of walking'], answer: 1, exp: 'Curious means having a strong desire to learn or know more.' }
+      ],
+      level1: [
+        { word: 'Accurate', emoji: '🎯', options: ['Full of spelling errors', 'Done in a hurry', 'Correct and free from mistakes', 'Hard to understand'], answer: 2, exp: 'Accurate means exact, precise, and free from errors.' },
+        { word: 'Collaborate', emoji: '🤝', options: ['To work together on a shared project', 'To argue loudly in public', 'To work completely alone', 'To cancel an event'], answer: 0, exp: 'Collaborate means working jointly with others toward a common goal.' },
+        { word: 'Enormous', emoji: '🐋', options: ['Smaller than a coin', 'Light as a feather', 'Quiet as a mouse', 'Extremely large in size'], answer: 3, exp: 'Enormous means huge or gigantic.' },
+        { word: 'Reluctant', emoji: '🐢', options: ['Unwilling and hesitant to do something', 'Excited and eager', 'Very fast and energetic', 'Completely fearless'], answer: 0, exp: 'Reluctant describes feeling hesitant or unwilling to act.' },
+        { word: 'Preserve', emoji: '🏺', options: ['To throw away quickly', 'To break into pieces', 'To protect and keep safe from harm', 'To forget completely'], answer: 2, exp: 'Preserve means maintaining something in its original or safe state.' },
+        { word: 'Abundant', emoji: '🍎', options: ['Extremely rare and hard to find', 'Existing in large, plentiful quantities', 'Completely empty', 'Expensive to buy'], answer: 1, exp: 'Abundant means available in large amounts; plentiful.' },
+        { word: 'Predict', emoji: '🔮', options: ['To remember the past', 'To hide a secret', 'To apologize politely', 'To say what will happen in the future'], answer: 3, exp: 'Predict means estimating or forecasting a future event.' },
+        { word: 'Diligent', emoji: '📝', options: ['Hardworking and careful in one’s duties', 'Lazy and careless', 'Easily distracted', 'Always complaining'], answer: 0, exp: 'Diligent students show steady, earnest, and careful effort.' },
+        { word: 'Temporary', emoji: '⏳', options: ['Lasting forever without end', 'Made of solid stone', 'Lasting for only a limited period of time', 'Impossible to change'], answer: 2, exp: 'Temporary means not permanent; lasting for a short time.' },
+        { word: 'Brilliant', emoji: '💡', options: ['Dull and uninteresting', 'Exceptionally clever or very bright', 'Dark and cloudy', 'Slow to learn'], answer: 1, exp: 'Brilliant means shining brightly or showing great intelligence.' }
+      ],
+      level2: [
+        { word: 'Inevitable', emoji: '⏰', options: ['Easy to prevent', 'Completely accidental', 'Rarely seen', 'Certain to happen and unavoidable'], answer: 3, exp: 'Inevitable means something is sure to happen and cannot be avoided.' },
+        { word: 'Ambiguous', emoji: '❓', options: ['Open to more than one interpretation; unclear', 'Crystal clear and obvious', 'Written in bold letters', 'Scientifically proven'], answer: 0, exp: 'Ambiguous statements have double or unclear meanings.' },
+        { word: 'Resilient', emoji: '🌱', options: ['Giving up at the first problem', 'Fragile and weak', 'Able to recover quickly from difficulties', 'Stubborn and rude'], answer: 2, exp: 'Resilient people bounce back strongly after setbacks.' },
+        { word: 'Consequence', emoji: '⚖️', options: ['The beginning of a story', 'A result or effect of an action', 'A friendly greeting', 'An unpaid bill'], answer: 1, exp: 'A consequence is the outcome or result caused by an earlier action.' },
+        { word: 'Scrutinize', emoji: '🔬', options: ['To glance at for one second', 'To ignore completely', 'To summarize briefly', 'To examine or inspect closely and thoroughly'], answer: 3, exp: 'Scrutinize means inspecting something with great attention to detail.' },
+        { word: 'Versatile', emoji: '🛠️', options: ['Able to adapt to many different functions', 'Useful for only one narrow task', 'Broken beyond repair', 'Difficult to carry'], answer: 0, exp: 'Versatile describes someone or something adaptable to many uses.' },
+        { word: 'Skeptical', emoji: '🤨', options: ['Believing everything immediately', 'Overly optimistic', 'Having doubts or reservations; not easily convinced', 'Deeply confused'], answer: 2, exp: 'Skeptical people question claims until they see solid evidence.' },
+        { word: 'Eloquent', emoji: '🎙️', options: ['Unable to speak clearly', 'Fluent, persuasive, and expressive in speaking', 'Shy and silent', 'Rude and disrespectful'], answer: 1, exp: 'An eloquent speaker expresses ideas clearly and persuasively.' },
+        { word: 'Diminish', emoji: '📉', options: ['To double in size', 'To stay exactly the same', 'To celebrate loudly', 'To make or become smaller or less'], answer: 3, exp: 'Diminish means to decrease, shrink, or lessen.' },
+        { word: 'Meticulous', emoji: '📐', options: ['Showing great attention to detail; very careful', 'Messy and disorganized', 'Rushed and incomplete', 'Loud and chaotic'], answer: 0, exp: 'Meticulous work is done with extreme care and precision.' }
+      ],
+      level3: [
+        { word: 'Pragmatic', emoji: '🧭', options: ['Based purely on impossible dreams', 'Dealing with things sensibly and realistically', 'Overly emotional', 'Ignoring all facts'], answer: 1, exp: 'Pragmatic approaches focus on practical results rather than pure theory.' },
+        { word: 'Alleviate', emoji: '🩹', options: ['To make a crisis much worse', 'To cause sudden panic', 'To make pain or a problem less severe', 'To ignore suffering'], answer: 2, exp: 'Alleviate means relieving or reducing pain, stress, or difficulty.' },
+        { word: 'Ephemeral', emoji: '🦋', options: ['Eternal and everlasting', 'Heavy and dense', 'Strictly forbidden', 'Lasting for a very short time'], answer: 3, exp: 'Ephemeral describes things that are fleeting or short-lived.' },
+        { word: 'Consensus', emoji: '🗳️', options: ['General agreement among a group', 'A bitter disagreement', 'A secret vote by one person', 'A legal punishment'], answer: 0, exp: 'Consensus is reached when all or most members agree.' },
+        { word: 'Plausible', emoji: '🤔', options: ['Completely absurd and impossible', 'Seeming reasonable or probable', 'Proven false', 'Illegal'], answer: 1, exp: 'A plausible explanation sounds believable and logical.' },
+        { word: 'Superfluous', emoji: '➕', options: ['Absolutely essential', 'Missing key parts', 'Unnecessary, especially through being more than enough', 'Extremely valuable'], answer: 2, exp: 'Superfluous means redundant or exceeding what is needed.' },
+        { word: 'Vindicate', emoji: '🏛️', options: ['To accuse without proof', 'To punish unfairly', 'To hide evidence', 'To clear someone of blame or suspicion'], answer: 3, exp: 'Vindicate means proving that someone was right or innocent.' },
+        { word: 'Candid', emoji: '💬', options: ['Truthful and straightforward; frank', 'Deceptive and secretive', 'Polite but dishonest', 'Vague and evasive'], answer: 0, exp: 'Candid remarks are honest, direct, and unguarded.' },
+        { word: 'Mitigate', emoji: '🛡️', options: ['To intensify danger', 'To make less severe, serious, or painful', 'To start a conflict', 'To abandon responsibility'], answer: 1, exp: 'Mitigate means reducing the harmful impact of something.' },
+        { word: 'Ubiquitous', emoji: '🌐', options: ['Found in only one remote cave', 'Completely invisible', 'Present, appearing, or found everywhere', 'Outdated and forgotten'], answer: 2, exp: 'Smartphones today are ubiquitous—seen almost everywhere.' }
+      ],
+      level4: [
+        { word: 'Equivocal', emoji: '🎭', options: ['Unmistakably clear', 'Mathematically exact', 'Loudly proclaimed', 'Open to more than one interpretation; intentionally vague'], answer: 3, exp: 'Equivocal language is deliberately ambiguous or noncommittal.' },
+        { word: 'Magnanimous', emoji: '👑', options: ['Generous or forgiving, especially toward a rival', 'Petty and vengeful', 'Selfish and greedy', 'Cowardly'], answer: 0, exp: 'Magnanimous describes noble generosity and forgiveness.' },
+        { word: 'Sycophant', emoji: '🙇', options: ['An independent thinker', 'A person who flatters powerful people for advantage', 'A fierce critic', 'A university professor'], answer: 1, exp: 'A sycophant uses insincere flattery to gain favor.' },
+        { word: 'Recalcitrant', emoji: '🐎', options: ['Obedient and compliant', 'Eager to please', 'Stubbornly uncooperative toward authority', 'Timid and shy'], answer: 2, exp: 'Recalcitrant individuals resist rules, discipline, or authority.' },
+        { word: 'Ostentatious', emoji: '💎', options: ['Humble and modest', 'Plain and unadorned', 'Hidden from view', 'Designed to impress or attract notice; showy'], answer: 3, exp: 'Ostentatious displays show off wealth or status extravagantly.' },
+        { word: 'Perspicacious', emoji: '🦅', options: ['Having a ready insight into and understanding of things', 'Slow to comprehend', 'Easily fooled', 'Careless'], answer: 0, exp: 'Perspicacious means mentally sharp and keenly perceptive.' },
+        { word: 'Cacophony', emoji: '📢', options: ['A peaceful symphony', 'A harsh, discordant mixture of sounds', 'Complete silence', 'A gentle whisper'], answer: 1, exp: 'Cacophony refers to loud, jarring, unpleasant noise.' },
+        { word: 'Ameliorate', emoji: '📈', options: ['To ruin completely', 'To leave unchanged', 'To make something bad or unsatisfactory better', 'To complicate needlessly'], answer: 2, exp: 'Ameliorate means improving a difficult or poor situation.' },
+        { word: 'Laconic', emoji: '🗿', options: ['Talkative and rambling', 'Loud and emotional', 'Repetitive', 'Using very few words; concise to the point of mystery'], answer: 3, exp: 'A laconic reply uses minimal words to express a thought.' },
+        { word: 'Vicarious', emoji: '📖', options: ['Experienced in the imagination through another person', 'Experienced firsthand directly', 'Completely imaginary', 'Unpleasant'], answer: 0, exp: 'Vicarious thrills are felt indirectly by watching or reading about others.' }
+      ]
+    };
+
+    const GRAMMAR_BANK = {
+      foundation: [
+        { wrong: 'She go to school every morning.', options: ['She going to school every morning.', 'She goes to school every morning.', 'She gone to school every morning.', 'She to go school every morning.'], answer: 1, exp: 'With third-person singular subjects (he, she, it), add "-es" to "go" in the simple present: "She goes".' },
+        { wrong: 'They is happy to be at AUIS.', options: ['They am happy to be at AUIS.', 'They be happy to be at AUIS.', 'They are happy to be at AUIS.', 'They was happy to be at AUIS.'], answer: 2, exp: 'Plural subject "They" takes the plural verb "are".' },
+        { wrong: 'I have two book in my bag.', options: ['I has two book in my bag.', 'I have two booking in my bag.', 'I having two books in my bag.', 'I have two books in my bag.'], answer: 3, exp: 'Because the number is "two", the noun must be plural: "books".' },
+        { wrong: 'He don’t like cold coffee.', options: ['He doesn’t like cold coffee.', 'He don’t likes cold coffee.', 'He not like cold coffee.', 'He isn’t like cold coffee.'], answer: 0, exp: 'Use "doesn’t" (does not) with he/she/it in negative present simple sentences.' },
+        { wrong: 'We was late for the bus yesterday.', options: ['We is late for the bus yesterday.', 'We were late for the bus yesterday.', 'We are late for the bus yesterday.', 'We be late for the bus yesterday.'], answer: 1, exp: 'In the past tense, "We" pairs with "were", not "was".' },
+        { wrong: 'An apple a day keep the doctor away.', options: ['A apple a day keeps the doctor away.', 'An apple a day keeping the doctor away.', 'An apple a day keeps the doctor away.', 'An apples a day keep the doctor away.'], answer: 2, exp: '"An apple" is singular, so the verb requires "-s": "keeps".' },
+        { wrong: 'My brother can swims very fast.', options: ['My brother can swimming very fast.', 'My brother cans swim very fast.', 'My brother can swam very fast.', 'My brother can swim very fast.'], answer: 3, exp: 'After modal verbs like "can", always use the base form of the verb ("swim").' },
+        { wrong: 'There is many students in the library.', options: ['There are many students in the library.', 'There is much students in the library.', 'There am many students in the library.', 'There be many students in the library.'], answer: 0, exp: '"Many students" is plural, so use "There are".' },
+        { wrong: 'Yesterday I buy a new notebook.', options: ['Yesterday I buys a new notebook.', 'Yesterday I bought a new notebook.', 'Yesterday I buying a new notebook.', 'Yesterday I will buy a new notebook.'], answer: 1, exp: '"Yesterday" signals past tense; the irregular past form of "buy" is "bought".' },
+        { wrong: 'This is mine new laptop.', options: ['This is me new laptop.', 'This is I new laptop.', 'This is my new laptop.', 'This is ours new laptop.'], answer: 2, exp: 'Before a noun ("new laptop"), use the possessive adjective "my", not "mine".' }
+      ],
+      level1: [
+        { wrong: 'She has lived in Sulaimani since five years.', options: ['She has lived in Sulaimani during five years.', 'She live in Sulaimani since five years.', 'She has living in Sulaimani for five years.', 'She has lived in Sulaimani for five years.'], answer: 3, exp: 'Use "for" with a duration of time (five years) and "since" with a specific starting point (2021).' },
+        { wrong: 'This exam is more easier than the last one.', options: ['This exam is easier than the last one.', 'This exam is most easier than the last one.', 'This exam is more easy than the last one.', 'This exam is easiest than the last one.'], answer: 0, exp: '"Easier" is already a comparative adjective; do not use "more" before it.' },
+        { wrong: 'Everyone in the classroom have a pencil.', options: ['Everyone in the classroom are having a pencil.', 'Everyone in the classroom has a pencil.', 'Everyone in the classroom were a pencil.', 'Everyone in the classroom have pencils.'], answer: 1, exp: 'Indefinite pronouns like "Everyone" are grammatically singular and take "has".' },
+        { wrong: 'I am looking forward to meet you.', options: ['I am looking forward to met you.', 'I look forward to meets you.', 'I am looking forward to meeting you.', 'I am look forward to meeting you.'], answer: 2, exp: 'In "look forward to", "to" is a preposition, so it must be followed by a gerund (-ing): "meeting".' },
+        { wrong: 'He didn’t went to the lecture.', options: ['He didn’t goes to the lecture.', 'He didn’t gone to the lecture.', 'He not went to the lecture.', 'He didn’t go to the lecture.'], answer: 3, exp: 'After "didn’t", always use the base form of the main verb ("go").' },
+        { wrong: 'How much books did you read this summer?', options: ['How many books did you read this summer?', 'How much book did you read this summer?', 'How many book did you read this summer?', 'How often books did you read this summer?'], answer: 0, exp: 'Use "many" with countable plural nouns like "books" ("much" is for uncountable nouns).' },
+        { wrong: 'While I walked home, it started to rain.', options: ['While I walking home, it started to rain.', 'While I was walking home, it started to rain.', 'While I am walk home, it started to rain.', 'While I walk home, it started to rain.'], answer: 1, exp: 'Use the past continuous ("was walking") for an ongoing background action interrupted by a past event.' },
+        { wrong: 'She plays the piano very good.', options: ['She plays the piano very best.', 'She play the piano very well.', 'She plays the piano very well.', 'She playing the piano very good.'], answer: 2, exp: 'To describe how an action is performed, use the adverb "well", not the adjective "good".' },
+        { wrong: 'Neither Sara nor her friends was ready.', options: ['Neither Sara nor her friends is ready.', 'Neither Sara nor her friends am ready.', 'Neither Sara or her friends was ready.', 'Neither Sara nor her friends were ready.'], answer: 3, exp: 'With "neither...nor", the verb agrees with the closer subject ("her friends" → plural "were").' },
+        { wrong: 'You must to finish your essay tonight.', options: ['You must finish your essay tonight.', 'You must finishing your essay tonight.', 'You must finished your essay tonight.', 'You musts finish your essay tonight.'], answer: 0, exp: 'Modal verb "must" is followed directly by the bare infinitive ("finish") without "to".' }
+      ],
+      level2: [
+        { wrong: 'If I will have time tomorrow, I will call you.', options: ['If I had time tomorrow, I will call you.', 'If I have time tomorrow, I will call you.', 'If I having time tomorrow, I will call you.', 'If I will has time tomorrow, I will call you.'], answer: 1, exp: 'In First Conditional sentences, use the present simple ("If I have") in the if-clause, not "will".' },
+        { wrong: 'The news about the scholarship are exciting.', options: ['The news about the scholarship were exciting.', 'The news about the scholarship have exciting.', 'The news about the scholarship is exciting.', 'The new about the scholarship are exciting.'], answer: 2, exp: '"News" is an uncountable singular noun, so it takes the singular verb "is".' },
+        { wrong: 'She is the student which won the debate.', options: ['She is the student what won the debate.', 'She is the student whose won the debate.', 'She is the student whom won the debate.', 'She is the student who won the debate.'], answer: 3, exp: 'Use the relative pronoun "who" (or "that") when referring to people, not "which".' },
+        { wrong: 'By the time we arrived, the movie already started.', options: ['By the time we arrived, the movie had already started.', 'By the time we arrived, the movie has already started.', 'By the time we arrive, the movie had already started.', 'By the time we arrived, the movie already starting.'], answer: 0, exp: 'Use the past perfect ("had already started") for an action completed before another past action.' },
+        { wrong: 'He suggested me to apply for the internship.', options: ['He suggested me applying for the internship.', 'He suggested that I apply for the internship.', 'He suggested to me apply for the internship.', 'He suggest me to apply for the internship.'], answer: 1, exp: '"Suggest" cannot take an indirect object + infinitive; use "suggested that [subject] + base verb" or "suggested applying".' },
+        { wrong: 'Despite it was raining, we played soccer.', options: ['Despite it raining was, we played soccer.', 'Despite of it was raining, we played soccer.', 'Although it was raining, we played soccer.', 'However it was raining, we played soccer.'], answer: 2, exp: '"Despite" must be followed by a noun or gerund; use "Although" before a full clause (subject + verb).' },
+        { wrong: 'I prefer tea than coffee in the morning.', options: ['I prefer tea more coffee in the morning.', 'I prefer tea from coffee in the morning.', 'I preferring tea than coffee in the morning.', 'I prefer tea to coffee in the morning.'], answer: 3, exp: 'The correct preposition with "prefer" when comparing two nouns is "to" ("prefer X to Y").' },
+        { wrong: 'The teacher made the students to rewrite the paragraph.', options: ['The teacher made the students rewrite the paragraph.', 'The teacher made the students rewriting the paragraph.', 'The teacher made the students rewrote the paragraph.', 'The teacher make the students to rewrite the paragraph.'], answer: 0, exp: 'Causative "make + object" takes the bare infinitive ("rewrite") without "to".' },
+        { wrong: 'Each of the participants were given a certificate.', options: ['Each of the participants are given a certificate.', 'Each of the participants was given a certificate.', 'Each of the participant were given a certificate.', 'Each of the participants have given a certificate.'], answer: 1, exp: '"Each" is singular, so the verb must be singular: "was given".' },
+        { wrong: 'Could you tell me where is the Registrar’s office?', options: ['Could you tell me where are the Registrar’s office?', 'Could you tell me where does the Registrar’s office?', 'Could you tell me where the Registrar’s office is?', 'Could you tell me is where the Registrar’s office?'], answer: 2, exp: 'In indirect questions ("Could you tell me..."), use statement word order (subject before verb): "...where the Registrar’s office is?"' }
+      ],
+      level3: [
+        { wrong: 'If I would have known about the seminar, I would have attended.', options: ['If I knew about the seminar, I would have attended.', 'If I have known about the seminar, I would have attended.', 'If I had knew about the seminar, I would have attended.', 'If I had known about the seminar, I would have attended.'], answer: 3, exp: 'Third Conditional uses "If + past perfect (had known)" in the condition clause, never "would have".' },
+        { wrong: 'Scarcely had the lecture began when the power went out.', options: ['Scarcely had the lecture begun when the power went out.', 'Scarcely the lecture had begun when the power went out.', 'Scarcely had the lecture begin when the power went out.', 'Scarcely did the lecture begun when the power went out.'], answer: 0, exp: 'After "had", use the past participle "begun" (begin – began – begun).' },
+        { wrong: 'The data collected by the researchers proves their hypothesis.', options: ['The data collected by the researchers proving their hypothesis.', 'The data collected by the researchers prove their hypothesis.', 'The datas collected by the researchers proves their hypothesis.', 'The data collect by the researchers prove their hypothesis.'], answer: 1, exp: 'In formal academic English, "data" is the plural of "datum" and pairs with the plural verb "prove".' },
+        { wrong: 'Walking through the campus, the autumn trees looked magnificent.', options: ['Walking through the campus, the autumn trees were looked magnificent.', 'Walked through the campus, the autumn trees looked magnificent.', 'Walking through the campus, we thought the autumn trees looked magnificent.', 'Walking through the campus, magnificent looked the autumn trees.'], answer: 2, exp: 'Avoid dangling modifiers: trees cannot walk, so the subject after the comma must be the person walking ("we").' },
+        { wrong: 'She is one of those professors who always inspires her students.', options: ['She is one of those professor who always inspires her students.', 'She is one of those professors whom always inspires her students.', 'She is one of those professors which always inspire her students.', 'She is one of those professors who always inspire her students.'], answer: 3, exp: '"Who" refers to "those professors" (plural), so the verb is "inspire".' },
+        { wrong: 'It is high time we start preparing for final exams.', options: ['It is high time we started preparing for final exams.', 'It is high time we will start preparing for final exams.', 'It is high time we have start preparing for final exams.', 'It is high time we starting preparing for final exams.'], answer: 0, exp: 'The idiom "It is high time + subject" takes the past subjunctive ("started") to express urgency.' },
+        { wrong: 'Hardly anyone attended the workshop, didn’t they?', options: ['Hardly anyone attended the workshop, didn’t he?', 'Hardly anyone attended the workshop, did they?', 'Hardly anyone attended the workshop, wasn’t they?', 'Hardly anyone attended the workshop, do they?'], answer: 1, exp: '"Hardly" carries a negative meaning, so the question tag must be positive: "did they?"' },
+        { wrong: 'The committee has divided in their opinions on the policy.', options: ['The committee has divided in its opinions on the policy.', 'The committee is dividing in their opinions on the policy.', 'The committee are divided in their opinions on the policy.', 'The committee have divide in their opinions on the policy.'], answer: 2, exp: 'When members of a collective noun act individually ("divided in their opinions"), use a plural verb ("are").' },
+        { wrong: 'No sooner did the bell rang than the students exited.', options: ['No sooner had the bell ring than the students exited.', 'No sooner did the bell rung than the students exited.', 'No sooner the bell rang when the students exited.', 'No sooner did the bell ring than the students exited.'], answer: 3, exp: 'After the auxiliary "did", the main verb must be in its base form: "ring".' },
+        { wrong: 'She avoids to speak during large panel discussions.', options: ['She avoids speaking during large panel discussions.', 'She avoids to speaking during large panel discussions.', 'She avoids spoke during large panel discussions.', 'She avoid speaking during large panel discussions.'], answer: 0, exp: 'The verb "avoid" is always followed by a gerund (-ing form), never an infinitive.' }
+      ],
+      level4: [
+        { wrong: 'Not only the dean praised the research, but she also funded it.', options: ['Not only the dean did praised the research, but she also funded it.', 'Not only did the dean praise the research, but she also funded it.', 'Not only praised the dean the research, but she also funded it.', 'Not only does the dean praised the research, but she also funded it.'], answer: 1, exp: 'Starting a clause with negative adverbial "Not only" requires subject-auxiliary inversion ("did the dean praise").' },
+        { wrong: 'The professor insisted that the paper is submitted by Friday.', options: ['The professor insisted that the paper was submitted by Friday.', 'The professor insisted that the paper being submitted by Friday.', 'The professor insisted that the paper be submitted by Friday.', 'The professor insisted that the paper will submitted by Friday.'], answer: 2, exp: 'Verbs of demand/insistence ("insisted that") trigger the mandative subjunctive: base verb "be".' },
+        { wrong: 'Whomever submits the most compelling proposal will receive the grant.', options: ['Whomever submit the most compelling proposal will receive the grant.', 'Who submits the most compelling proposal will receives the grant.', 'Whom submits the most compelling proposal will receive the grant.', 'Whoever submits the most compelling proposal will receive the grant.'], answer: 3, exp: 'The pronoun is the subject of the verb "submits", requiring the subjective case "Whoever".' },
+        { wrong: 'Had it not been for your guidance, I would fail the thesis defense.', options: ['Had it not been for your guidance, I would have failed the thesis defense.', 'Had it not been for your guidance, I will fail the thesis defense.', 'If it had not been for your guidance, I would failed the thesis defense.', 'Had it not be for your guidance, I would have failed the thesis defense.'], answer: 0, exp: 'Inverted Third Conditional ("Had it not been...") pairs with "would have + past participle" ("would have failed").' },
+        { wrong: 'The criteria for admission has become increasingly selective.', options: ['The criterion for admission have become increasingly selective.', 'The criteria for admission have become increasingly selective.', 'The criteria for admission has became increasingly selective.', 'The criterias for admission have become increasingly selective.'], answer: 1, exp: '"Criteria" is the plural form of "criterion", so it requires the plural auxiliary "have".' },
+        { wrong: 'Seldom we encounter a theory so thoroughly substantiated.', options: ['Seldom we do encounter a theory so thoroughly substantiated.', 'Seldom are we encounter a theory so thoroughly substantiated.', 'Seldom do we encounter a theory so thoroughly substantiated.', 'Seldom did we encountered a theory so thoroughly substantiated.'], answer: 2, exp: 'Negative frequency adverbs like "Seldom" at the start of a sentence require inversion ("do we encounter").' },
+        { wrong: 'Between you and I, the keynote lecture exceeded expectations.', options: ['Between yourself and I, the keynote lecture exceeded expectations.', 'Between you and myself, the keynote lecture exceeding expectations.', 'Between we, the keynote lecture exceeded expectations.', 'Between you and me, the keynote lecture exceeded expectations.'], answer: 3, exp: 'Prepositions like "Between" require object pronouns ("me", not subject pronoun "I").' },
+        { wrong: 'The novel, together with its critical essays, are required reading.', options: ['The novel, together with its critical essays, is required reading.', 'The novel, together with its critical essays, were required reading.', 'The novel, together with its critical essays, have required reading.', 'The novels, together with its critical essays, is required reading.'], answer: 0, exp: 'Parenthetical phrases like "together with..." do not change the number of the main singular subject ("The novel" → "is").' },
+        { wrong: 'She objected to him interrupting the speaker repeatedly.', options: ['She objected to he interrupting the speaker repeatedly.', 'She objected to his interrupting the speaker repeatedly.', 'She objected him interrupting the speaker repeatedly.', 'She objected to his interrupt the speaker repeatedly.'], answer: 1, exp: 'In formal grammar, a possessive determiner ("his") precedes a gerund ("interrupting").' },
+        { wrong: 'Were she to accept the fellowship, she will relocate to Boston.', options: ['Were she to accept the fellowship, she would have relocated to Boston.', 'Was she to accept the fellowship, she would relocate to Boston.', 'Were she to accept the fellowship, she would relocate to Boston.', 'Were she accepting the fellowship, she will relocate to Boston.'], answer: 2, exp: 'Inverted Second Conditional ("Were she to...") describes a hypothetical future and requires "would + base verb".' }
+      ]
+    };
+
+    const SPELLING_BANK = {
+      foundation: [
+        { masked: 'Beauti__l', full: 'Beautiful', missing: 'fu', hint: 'Pleasing to the senses or mind; very pretty.' },
+        { masked: 'Fr__nd', full: 'Friend', missing: 'ie', hint: 'A person whom one knows and likes very much.' },
+        { masked: 'Sch__l', full: 'School', missing: 'oo', hint: 'An institution for educating students.' },
+        { masked: 'Bec__se', full: 'Because', missing: 'au', hint: 'For the reason that.' },
+        { masked: 'T__cher', full: 'Teacher', missing: 'ea', hint: 'A person who helps students learn in a classroom.' },
+        { masked: 'Morn__g', full: 'Morning', missing: 'in', hint: 'The early part of the day before noon.' },
+        { masked: 'Fam__y', full: 'Family', missing: 'il', hint: 'Parents and children living together as a group.' },
+        { masked: 'Lib__ry', full: 'Library', missing: 'ra', hint: 'A building or room full of books to read.' },
+        { masked: 'W__ther', full: 'Weather', missing: 'ea', hint: 'The state of the atmosphere (sunny, rainy, windy).' },
+        { masked: 'Stud__t', full: 'Student', missing: 'en', hint: 'A person who is studying at a school or university.' }
+      ],
+      level1: [
+        { masked: 'Knowl__ge', full: 'Knowledge', missing: 'ed', hint: 'Facts, information, and skills acquired through learning.' },
+        { masked: 'Diff__ent', full: 'Different', missing: 'er', hint: 'Not the same as another or each other.' },
+        { masked: 'Imp__tant', full: 'Important', missing: 'or', hint: 'Of great significance or value.' },
+        { masked: 'Lang__ge', full: 'Language', missing: 'ua', hint: 'A system of human communication using words.' },
+        { masked: 'Univ__sity', full: 'University', missing: 'er', hint: 'An institution of higher education like AUIS.' },
+        { masked: 'Febr__ry', full: 'February', missing: 'ua', hint: 'The second month of the year.' },
+        { masked: 'Tomor__w', full: 'Tomorrow', missing: 'ro', hint: 'The day after today.' },
+        { masked: 'Bel__ve', full: 'Believe', missing: 'ie', hint: 'To accept something as true.' },
+        { masked: 'Cal__dar', full: 'Calendar', missing: 'en', hint: 'A chart showing the days, weeks, and months of a year.' },
+        { masked: 'Bicy__e', full: 'Bicycle', missing: 'cl', hint: 'A two-wheeled vehicle powered by pedals.' }
+      ],
+      level2: [
+        { masked: 'Envir__ment', full: 'Environment', missing: 'on', hint: 'The natural world or surroundings in which we live.' },
+        { masked: 'Gov__nment', full: 'Government', missing: 'er', hint: 'The governing body of a nation or state.' },
+        { masked: 'Nec__sary', full: 'Necessary', missing: 'es', hint: 'Required to be done, achieved, or needed; essential.' },
+        { masked: 'Sep__ate', full: 'Separate', missing: 'ar', hint: 'Forming or viewed as a unit apart or by itself.' },
+        { masked: 'Def__itely', full: 'Definitely', missing: 'in', hint: 'Without doubt; certainly.' },
+        { masked: 'Rec__ve', full: 'Receive', missing: 'ei', hint: 'To be given, presented with, or paid something.' },
+        { masked: 'Occ__sion', full: 'Occasion', missing: 'ca', hint: 'A particular time or special event.' },
+        { masked: 'Sched__e', full: 'Schedule', missing: 'ul', hint: 'A plan for carrying out a process or list of class times.' },
+        { masked: 'Col__gue', full: 'Colleague', missing: 'ea', hint: 'A person with whom one works in a profession.' },
+        { masked: 'Privil__e', full: 'Privilege', missing: 'eg', hint: 'A special right or advantage granted to a person.' }
+      ],
+      level3: [
+        { masked: 'Accom__date', full: 'Accommodate', missing: 'mo', hint: 'To provide lodging or sufficient space for.' },
+        { masked: 'Embar__ss', full: 'Embarrass', missing: 'ra', hint: 'To cause someone to feel awkward or self-conscious.' },
+        { masked: 'Entrepr__eur', full: 'Entrepreneur', missing: 'en', hint: 'A person who sets up a business taking financial risks.' },
+        { masked: 'Consc__nce', full: 'Conscience', missing: 'ie', hint: 'An inner feeling acting as a guide to right or wrong.' },
+        { masked: 'Maint__nance', full: 'Maintenance', missing: 'en', hint: 'The process of preserving a condition or keeping equipment working.' },
+        { masked: 'Millen__um', full: 'Millennium', missing: 'ni', hint: 'A period of a thousand years.' },
+        { masked: 'Quest__nnaire', full: 'Questionnaire', missing: 'io', hint: 'A set of printed or written questions for a survey.' },
+        { masked: 'Rhy__m', full: 'Rhythm', missing: 'th', hint: 'A strong, regular, repeated pattern of movement or sound.' },
+        { masked: 'Sub__le', full: 'Subtle', missing: 't', hint: 'So delicate or precise as to be difficult to analyze or describe.' },
+        { masked: 'Pneu__nia', full: 'Pneumonia', missing: 'mo', hint: 'A lung inflammation caused by bacterial or viral infection.' }
+      ],
+      level4: [
+        { masked: 'Consc__ntious', full: 'Conscientious', missing: 'ie', hint: 'Wishing to do one’s work or duty well and thoroughly.' },
+        { masked: 'Idiosyn__asy', full: 'Idiosyncrasy', missing: 'cr', hint: 'A mode of behavior or way of thought peculiar to an individual.' },
+        { masked: 'Surveil__nce', full: 'Surveillance', missing: 'la', hint: 'Close observation, especially of a suspected person or area.' },
+        { masked: 'Phar__ceutical', full: 'Pharmaceutical', missing: 'ma', hint: 'Relating to medicinal drugs or their preparation.' },
+        { masked: 'Camouf__ge', full: 'Camouflage', missing: 'la', hint: 'Disguising equipment or animals to blend into surroundings.' },
+        { masked: 'Bourge__sie', full: 'Bourgeoisie', missing: 'oi', hint: 'The middle class, typically with reference to materialistic values.' },
+        { masked: 'Lia__on', full: 'Liaison', missing: 'is', hint: 'Communication or cooperation facilitating a close working relationship.' },
+        { masked: 'Man__ver', full: 'Maneuver', missing: 'eu', hint: 'A movement or series of moves requiring skill and care.' },
+        { masked: 'Sov__eignty', full: 'Sovereignty', missing: 'er', hint: 'Supreme power or authority of a state to govern itself.' },
+        { masked: 'Unprec__ented', full: 'Unprecedented', missing: 'ed', hint: 'Never done or known before.' }
+      ]
+    };
+
+    const READING_BANK = {
+      foundation: [
+        {
+          title: 'Passage 1: Morning on the AUIS Campus',
+          text: 'Every morning at 8:00 AM, Aram walks through the main gate of the AUIS campus in Sulaimani. The air is fresh, and the surrounding mountains look bright under the morning sun. Before his first English class starts at 8:30 AM, Aram always visits the campus cafeteria to buy a cup of hot tea and review his vocabulary flashcards. His classmate, Lava, usually joins him at a wooden table near the window. Together, they practice speaking English for twenty minutes so they feel confident during class discussions.',
+          questions: [
+            { q: 'What time does Aram walk through the main gate of the campus?', options: ['8:30 AM', '8:00 AM', '7:30 AM', '9:00 AM'], answer: 1, exp: 'The first sentence states that Aram walks through the main gate every morning at 8:00 AM.' },
+            { q: 'What does Aram buy at the campus cafeteria?', options: ['A cold sandwich', 'A cup of hot tea', 'A bottle of juice', 'A chocolate cake'], answer: 1, exp: 'The passage says he visits the cafeteria to buy a cup of hot tea.' },
+            { q: 'Who usually joins Aram at the wooden table?', options: ['His English professor', 'His classmate, Lava', 'His younger brother', 'The librarian'], answer: 1, exp: 'His classmate, Lava, usually joins him near the window.' },
+            { q: 'How long do Aram and Lava practice speaking English together?', options: ['Ten minutes', 'One hour', 'Twenty minutes', 'Forty-five minutes'], answer: 2, exp: 'They practice speaking English for twenty minutes before class.' },
+            { q: 'Why do they practice speaking before class?', options: ['To prepare for a sports match', 'Because they forgot their homework', 'To feel confident during class discussions', 'Because the library is closed'], answer: 2, exp: 'They practice so they feel confident during class discussions.' }
+          ]
+        },
+        {
+          title: 'Passage 2: The Lost Blue Backpack',
+          text: 'On Tuesday afternoon, Sara finished her computer lab session and hurried home. When she reached her front door, she realized her blue backpack was missing. Inside the bag were her favorite novel, a silver water bottle, and her notebook. Worried, Sara called the university Lost and Found office. A helpful staff member checked the shelf and smiled—a student had found the blue backpack near the science building ten minutes earlier and turned it in safely.',
+          questions: [
+            { q: 'When did Sara realize her backpack was missing?', options: ['During her morning class', 'When she reached her front door', 'At the bus station', 'Inside the cafeteria'], answer: 1, exp: 'She realized her backpack was missing when she reached her front door.' },
+            { q: 'What color was Sara’s backpack?', options: ['Silver', 'Black', 'Blue', 'Green'], answer: 2, exp: 'The story mentions her "blue backpack" twice.' },
+            { q: 'Which of these items was inside the backpack?', options: ['A laptop charger', 'A silver water bottle', 'A pair of sunglasses', 'An umbrella'], answer: 1, exp: 'Inside were her favorite novel, a silver water bottle, and her notebook.' },
+            { q: 'Who did Sara call for help?', options: ['Her best friend', 'The city police', 'The university Lost and Found office', 'Her neighbor'], answer: 2, exp: 'Sara called the university Lost and Found office.' },
+            { q: 'Where had a student found the backpack?', options: ['Inside the library', 'Near the science building', 'At the main gate', 'In the parking lot'], answer: 1, exp: 'A student found it near the science building ten minutes earlier.' }
+          ]
+        }
+      ],
+      level1: [
+        {
+          title: 'Passage 1: The Community Garden Project',
+          text: 'Last spring, a group of students in Sulaimani decided to transform an empty corner of their neighborhood into a community garden. At first, the soil was dry and covered with stones. Every weekend, twenty volunteers cleared rocks, planted tomatoes, mint, and sunflowers, and built a simple drip-irrigation system to save water. By July, the garden was green and thriving. Families shared the fresh vegetables, and children learned how plants grow.',
+          questions: [
+            { q: 'What was the empty corner like at the beginning?', options: ['Full of tall trees', 'Dry and covered with stones', 'Flooded with rainwater', 'Covered in thick grass'], answer: 1, exp: 'The passage notes that at first, the soil was dry and covered with stones.' },
+            { q: 'How many volunteers worked on the garden every weekend?', options: ['Ten', 'Twenty', 'Fifty', 'Five'], answer: 1, exp: 'Twenty volunteers worked every weekend to clear rocks and plant crops.' },
+            { q: 'Why did the volunteers build a drip-irrigation system?', options: ['To decorate the fence', 'To save water', 'To keep birds away', 'To water only the sunflowers'], answer: 1, exp: 'They built a simple drip-irrigation system specifically to save water.' },
+            { q: 'By which month was the garden green and thriving?', options: ['March', 'July', 'October', 'January'], answer: 1, exp: 'By July, the garden had become green and thriving.' },
+            { q: 'What did children gain from the project?', options: ['They earned money selling flowers', 'They built wooden benches', 'They learned how plants grow', 'They won a school trophy'], answer: 2, exp: 'Families shared vegetables, and children learned how plants grow.' }
+          ]
+        },
+        {
+          title: 'Passage 2: Why Honey Never Spoils',
+          text: 'Archaeologists exploring ancient Egyptian tombs have discovered pots of honey that are over 3,000 years old—and still completely safe to eat! Honey has a unique chemical makeup that prevents bacteria from growing. First, it contains very little moisture, so microorganisms cannot survive inside it. Second, bees add a special enzyme when making honey that creates small amounts of natural hydrogen peroxide. As long as honey is kept in a sealed jar away from water, it can last almost forever.',
+          questions: [
+            { q: 'How old was the honey found in ancient Egyptian tombs?', options: ['About 300 years old', 'Over 3,000 years old', 'Exactly 1,000 years old', 'Less than 50 years old'], answer: 1, exp: 'Archaeologists discovered pots of honey over 3,000 years old.' },
+            { q: 'Why can’t microorganisms survive easily in honey?', options: ['Honey is kept frozen', 'Honey contains very little moisture', 'Honey is made of salt', 'Honey has no sugar'], answer: 1, exp: 'Honey contains very little moisture, preventing bacteria from surviving.' },
+            { q: 'What do bees add when making honey?', options: ['Drops of rainwater', 'A special enzyme', 'Tree resin', 'Flower petals'], answer: 1, exp: 'Bees add a special enzyme that produces natural hydrogen peroxide.' },
+            { q: 'How should honey be stored to last a very long time?', options: ['In an open bowl outdoors', 'In a sealed jar away from water', 'Mixed with warm milk', 'Inside a paper bag'], answer: 1, exp: 'Keeping honey in a sealed jar away from water allows it to last almost forever.' },
+            { q: 'What is the main topic of this passage?', options: ['How to build a beehive', 'The history of Egyptian pyramids', 'The scientific reasons honey does not spoil', 'Recipes that use honey'], answer: 2, exp: 'The passage explains the chemical properties that keep honey from spoiling.' }
+          ]
+        }
+      ],
+      level2: [
+        {
+          title: 'Passage 1: The Power of Sleep on Memory',
+          text: 'Many university students stay up all night studying before an important exam, believing that extra hours of reading will boost their grades. However, neuroscience research shows that sleep plays a critical role in memory consolidation. During deep sleep, the brain organizes newly learned facts and transfers them from short-term storage into long-term memory. Students who sleep seven to eight hours after studying recall significantly more information than those who sacrifice sleep for late-night cramming.',
+          questions: [
+            { q: 'What common mistake do many university students make before exams?', options: ['Studying in small groups', 'Staying up all night to study', 'Reviewing notes in the morning', 'Drinking too much water'], answer: 1, exp: 'Many students stay up all night believing extra reading hours will boost grades.' },
+            { q: 'What does "memory consolidation" happen during?', options: ['Afternoon exercise', 'Deep sleep', 'Eating breakfast', 'Listening to loud music'], answer: 1, exp: 'During deep sleep, the brain organizes and consolidates newly learned facts.' },
+            { q: 'Where does the brain transfer new facts during sleep?', options: ['From the eyes to the hands', 'From short-term storage into long-term memory', 'Out of the brain completely', 'Into dream journals'], answer: 1, exp: 'Facts move from short-term storage into long-term memory during sleep.' },
+            { q: 'How many hours of sleep are recommended in the passage for better recall?', options: ['Three to four hours', 'Seven to eight hours', 'Eleven to twelve hours', 'Only two hours'], answer: 1, exp: 'Students who sleep seven to eight hours recall significantly more information.' },
+            { q: 'What is the author’s main conclusion?', options: ['Cramming is the fastest way to learn', 'Adequate sleep improves exam recall better than all-night cramming', 'Memory cannot be improved', 'Exams should be abolished'], answer: 1, exp: 'The passage demonstrates that proper sleep outperforms sleep-deprived cramming.' }
+          ]
+        },
+        {
+          title: 'Passage 2: Vertical Farming in Modern Cities',
+          text: 'As urban populations expand, feeding millions of people without destroying forests has become a major global challenge. Vertical farming offers an innovative solution by growing crops in stacked indoor layers under controlled LED lighting. Because water is recycled continuously in closed loops, vertical farms use up to 95 percent less water than traditional agriculture. Furthermore, since these farms operate inside cities, fresh leafy greens reach local markets within hours of harvest, reducing transportation emissions.',
+          questions: [
+            { q: 'On floating ocean rafts', options: ['In stacked indoor layers under LED lighting', 'On floating ocean rafts', 'In vast desert fields', 'Underground without any light'], answer: 0, exp: 'Vertical farming grows crops in stacked indoor layers using controlled LED lighting.' },
+            { q: 'How much less water can vertical farms use compared to traditional farming?', options: ['About 10 percent less', 'Up to 95 percent less', '50 percent more', 'Exactly the same amount'], answer: 1, exp: 'Closed-loop water recycling allows vertical farms to use up to 95% less water.' },
+            { q: 'Why are transportation emissions reduced with vertical farming?', options: ['They use solar-powered airplanes', 'They only grow crops once a year', 'The farms operate directly inside cities near markets', 'They export food to distant countries'], answer: 2, exp: 'Operating inside cities means produce reaches local markets quickly with minimal transport.' },
+            { q: 'What problem does vertical farming help solve?', options: ['Replacing all teachers with robots', 'Feeding growing cities without destroying forests', 'Increasing rainfall in deserts', 'Building taller skyscrapers for offices'], answer: 1, exp: 'It addresses feeding expanding urban populations without clearing forests for farmland.' },
+            { q: 'Which word best describes the author’s attitude toward vertical farming?', options: ['Angry and dismissive', 'Supportive and optimistic', 'Confused and uncertain', 'Indifferent'], answer: 1, exp: 'The author calls it an "innovative solution" and highlights its environmental benefits.' }
+          ]
+        }
+      ],
+      level3: [
+        {
+          title: 'Passage 1: The Bystander Effect in Psychology',
+          text: 'In social psychology, the "bystander effect" describes a surprising phenomenon: individuals are less likely to offer help to a victim when other people are present than when they are alone. Researchers John Darley and Bibb Latané demonstrated that the presence of a crowd creates a "diffusion of responsibility." Each onlooker assumes someone else will intervene, leading everyone to hesitate. Fortunately, awareness of this psychological bias empowers individuals to overcome it; simply making eye contact and assigning a specific task—such as asking one person to call emergency services—breaks the paralysis.',
+          questions: [
+            { q: 'When are individuals LESS likely to help someone in need according to the bystander effect?', options: ['When they are completely alone', 'When they are trained doctors', 'When other people are present', 'When it is daytime'], answer: 2, exp: 'The bystander effect shows people are less likely to help when others are present.' },
+            { q: 'What term explains why onlookers assume someone else will act?', options: ['Selective attention', 'Diffusion of responsibility', 'Cognitive dissonance', 'Confirmation bias'], answer: 1, exp: 'Darley and Latané identified "diffusion of responsibility" as the cause.' },
+            { q: 'How can someone effectively overcome the bystander effect in an emergency?', options: ['By shouting at the entire crowd generally', 'By making eye contact and assigning a specific task to one person', 'By waiting quietly for ten minutes', 'By walking away quickly'], answer: 1, exp: 'Direct eye contact and assigning a specific task to an individual breaks group hesitation.' },
+            { q: 'Who were the two researchers mentioned in the text?', options: ['Sigmund Freud and Carl Jung', 'John Darley and Bibb Latané', 'Ivan Pavlov and B.F. Skinner', 'Jean Piaget and Erik Erikson'], answer: 1, exp: 'The passage names researchers John Darley and Bibb Latané.' },
+            { q: 'What does the word "paralysis" mean in the final sentence?', options: ['Inability to take action or respond', 'A physical muscle injury', 'Loud celebration', 'Rapid running'], answer: 0, exp: 'In this context, "paralysis" refers to the crowd’s frozen inaction.' }
+          ]
+        },
+        {
+          title: 'Passage 2: Bioluminescence in the Deep Ocean',
+          text: 'Below 200 meters in the ocean, sunlight fades into perpetual darkness, yet life thrives through bioluminescence—the biochemical emission of light by living organisms. Roughly 76 percent of deep-sea creatures produce their own light through a reaction between a molecule called luciferin and an enzyme named luciferase. This living light serves diverse evolutionary purposes: anglerfish use glowing lures to attract prey, certain squid release clouds of luminescent fluid to blind predators, and hatchetfish illuminate their bellies to match faint surface light, rendering themselves invisible from below.',
+          questions: [
+            { q: 'At what ocean depth does sunlight fade into perpetual darkness?', options: ['At 10 meters', 'Below 5,000 meters', 'Below 200 meters', 'At the ocean surface'], answer: 2, exp: 'The first sentence states that sunlight fades below 200 meters.' },
+            { q: 'Approximately what percentage of deep-sea organisms produce bioluminescence?', options: ['25 percent', '76 percent', '50 percent', '10 percent'], answer: 1, exp: 'Roughly 76 percent of deep-sea creatures generate their own light.' },
+            { q: 'Which two substances react to produce biological light?', options: ['Chlorophyll and oxygen', 'Nitrogen and carbon', 'Luciferin and luciferase', 'Calcium and iron'], answer: 2, exp: 'Light is produced by a reaction between luciferin and the enzyme luciferase.' },
+            { q: 'How do hatchetfish use bioluminescence for survival?', options: ['They blind predators with bright flashes', 'They illuminate their bellies to blend in with faint light from above', 'They attract mates with red signals', 'They warm the cold water around them'], answer: 1, exp: 'Hatchetfish light up their undersides to match faint surface light and hide from predators below.' },
+            { q: 'How does the anglerfish use its light?', options: ['As a lure to attract prey', 'To navigate coral reefs', 'To scare away whales', 'To signal submarines'], answer: 0, exp: 'Anglerfish use glowing lures to attract prey in the dark.' }
+          ]
+        }
+      ],
+      level4: [
+        {
+          title: 'Passage 1: The Paradox of Choice',
+          text: 'Conventional economic theory posits that expanding consumer choice unambiguously enhances individual welfare; after all, more options increase the likelihood of finding an exact match for one’s preferences. Yet psychologist Barry Schwartz argues that beyond a certain threshold, an abundance of choice induces decision paralysis and post-decision regret. When confronted with dozens of nearly identical alternatives, individuals expend excessive cognitive energy weighing opportunity costs. Even after selecting an option, they frequently wonder whether an unchosen alternative might have been superior, thereby diminishing overall satisfaction.',
+          questions: [
+            { q: 'What does conventional economic theory assume about having more choices?', options: ['It clearly improves individual well-being', 'It always causes severe anxiety', 'It reduces market competition', 'It forces consumers to buy less'], answer: 0, exp: 'Conventional theory posits that expanding choice unambiguously enhances welfare.' },
+            { q: 'According to Barry Schwartz, what happens when choices exceed a certain threshold?', options: ['Consumers become instantly happier', 'Decision paralysis and post-decision regret occur', 'Prices drop to zero', 'People stop comparing products'], answer: 1, exp: 'Schwartz argues excessive options cause decision paralysis and regret.' },
+            { q: 'Why does satisfaction drop even after a person makes a choice?', options: ['The product always breaks immediately', 'They forget what they purchased', 'Stores refuse to accept returns', 'They worry an unchosen option might have been better'], answer: 3, exp: 'People wonder whether an unchosen alternative might have been superior.' },
+            { q: 'What does "expend excessive cognitive energy" mean in context?', options: ['Use up too much mental effort thinking and comparing', 'Spend too much physical money', 'Exercise for too many hours', 'Ignore all available information'], answer: 0, exp: 'Cognitive energy refers to mental effort spent evaluating options and opportunity costs.' },
+            { q: 'Which title best captures the central theme of the passage?', options: ['The History of Global Banking', 'When More Options Lead to Less Satisfaction', 'How to Advertise Luxury Goods', 'Why Economic Models Never Fail'], answer: 1, exp: 'The passage explores how an overabundance of choice ironically lowers satisfaction.' }
+          ]
+        },
+        {
+          title: 'Passage 2: Epigenetics and Environmental Influence',
+          text: 'For decades, genetics was widely viewed as a rigid blueprint determined solely at conception. However, the burgeoning field of epigenetics has revealed that environmental factors—such as nutrition, chronic stress, and exposure to toxins—can attach chemical tags to DNA that turn specific genes "on" or "off" without altering the underlying genetic sequence itself. Remarkably, some of these epigenetic modifications can persist across cell divisions and even be inherited by subsequent generations, demonstrating a dynamic dialogue between our lived environment and our biological inheritance.',
+          questions: [
+            { q: 'As something that changes hourly with weather', options: ['As a rigid blueprint fixed solely at conception', 'As something that changes hourly with weather', 'As unrelated to human health', 'As completely controlled by diet alone'], answer: 0, exp: 'For decades, genetics was viewed as a rigid blueprint determined at conception.' },
+            { q: 'Do epigenetic tags change the underlying DNA sequence itself?', options: ['Yes, they erase half of the chromosomes', 'Yes, they permanently mutate every cell', 'No, they regulate gene expression without altering the sequence', 'Only when exposed to sunlight'], answer: 2, exp: 'Epigenetic tags switch genes on or off without altering the underlying genetic sequence.' },
+            { q: 'Which of the following is cited as an environmental factor influencing epigenetics?', options: ['Musical preference', 'Nutrition and chronic stress', 'Speaking multiple languages', 'Reading fiction'], answer: 1, exp: 'The passage lists nutrition, chronic stress, and exposure to toxins.' },
+            { q: 'Why is the discovery of epigenetic inheritance significant?', options: ['It proves DNA does not exist', 'Modifications can sometimes be passed to future generations', 'It eliminates all genetic diseases immediately', 'It shows cells never divide'], answer: 1, exp: 'Some epigenetic changes persist across cell divisions and can be inherited by future generations.' },
+            { q: 'What does the word "burgeoning" mean in the second sentence?', options: ['Declining and obsolete', 'Secretive and illegal', 'Rapidly growing and developing', 'Ancient and forgotten'], answer: 2, exp: '"Burgeoning" means rapidly expanding or flourishing.' }
+          ]
+        }
+      ]
+    };
+
+    const SCRAMBLE_BANK = {
+      foundation: [
+        { sentence: 'I love learning English at AUIS.', words: ['AUIS.', 'English', 'I', 'at', 'learning', 'love'], exp: 'Subject (I) + verb (love) + object (learning English) + place (at AUIS).' },
+        { sentence: 'She reads a book every night.', words: ['night.', 'a', 'reads', 'She', 'every', 'book'], exp: 'Subject (She) + verb (reads) + object (a book) + time (every night).' },
+        { sentence: 'The sun rises in the east.', words: ['east.', 'rises', 'The', 'the', 'in', 'sun'], exp: 'Subject (The sun) + verb (rises) + prepositional phrase (in the east).' },
+        { sentence: 'We are happy to help you.', words: ['you.', 'happy', 'We', 'help', 'to', 'are'], exp: 'Subject (We) + verb (are) + adjective (happy) + infinitive (to help you).' },
+        { sentence: 'My friend drinks tea every morning.', words: ['morning.', 'tea', 'My', 'every', 'drinks', 'friend'], exp: 'Subject (My friend) + verb (drinks) + object (tea) + time (every morning).' },
+        { sentence: 'They play soccer after class.', words: ['class.', 'soccer', 'They', 'after', 'play'], exp: 'Subject (They) + verb (play) + object (soccer) + time (after class).' },
+        { sentence: 'This library has many interesting books.', words: ['books.', 'has', 'This', 'interesting', 'many', 'library'], exp: 'Subject (This library) + verb (has) + object (many interesting books).' },
+        { sentence: 'Please close the door quietly.', words: ['quietly.', 'door', 'Please', 'the', 'close'], exp: 'Polite imperative: Please + base verb (close) + object (the door) + adverb (quietly).' },
+        { sentence: 'Our campus is clean and peaceful.', words: ['peaceful.', 'is', 'Our', 'and', 'clean', 'campus'], exp: 'Subject (Our campus) + linking verb (is) + adjectives (clean and peaceful).' },
+        { sentence: 'He always arrives on time.', words: ['time.', 'arrives', 'He', 'on', 'always'], exp: 'Frequency adverb "always" goes before the main verb "arrives".' }
+      ],
+      level1: [
+        { sentence: 'Students should review their notes daily.', words: ['daily.', 'notes', 'Students', 'their', 'review', 'should'], exp: 'Subject (Students) + modal (should) + base verb (review) + object (their notes) + adverb (daily).' },
+        { sentence: 'Yesterday we visited the museum in Sulaimani.', words: ['Sulaimani.', 'visited', 'Yesterday', 'in', 'museum', 'we', 'the'], exp: 'Time expression (Yesterday) + subject (we) + past verb (visited) + place.' },
+        { sentence: 'Learning a new language opens many doors.', words: ['doors.', 'new', 'Learning', 'many', 'language', 'opens', 'a'], exp: 'Gerund subject (Learning a new language) + verb (opens) + object (many doors).' },
+        { sentence: 'She has studied English for three years.', words: ['years.', 'English', 'She', 'three', 'studied', 'for', 'has'], exp: 'Present perfect: Subject (She) + has studied + object (English) + duration (for three years).' },
+        { sentence: 'Why did you choose this university?', words: ['university?', 'did', 'Why', 'this', 'choose', 'you'], exp: 'Wh-question order: Question word (Why) + auxiliary (did) + subject (you) + base verb (choose).' },
+        { sentence: 'The professor explained the lesson very clearly.', words: ['clearly.', 'lesson', 'The', 'very', 'explained', 'the', 'professor'], exp: 'Subject (The professor) + verb (explained) + object (the lesson) + adverb phrase (very clearly).' },
+        { sentence: 'We will celebrate our graduation next June.', words: ['June.', 'our', 'We', 'next', 'celebrate', 'graduation', 'will'], exp: 'Future simple: Subject (We) + will celebrate + object (our graduation) + time (next June).' },
+        { sentence: 'There are five cafes near the campus.', words: ['campus.', 'cafes', 'There', 'the', 'five', 'near', 'are'], exp: 'Existential structure: There + are + plural noun (five cafes) + location.' },
+        { sentence: 'Good communication requires careful listening.', words: ['listening.', 'requires', 'Good', 'careful', 'communication'], exp: 'Subject (Good communication) + verb (requires) + object (careful listening).' },
+        { sentence: 'He forgot to bring his laptop today.', words: ['today.', 'bring', 'He', 'his', 'to', 'laptop', 'forgot'], exp: 'Subject (He) + verb (forgot) + infinitive phrase (to bring his laptop) + time (today).' }
+      ],
+      level2: [
+        { sentence: 'Although it rained heavily, the event continued.', words: ['continued.', 'rained', 'Although', 'event', 'heavily,', 'the', 'it'], exp: 'Subordinate clause (Although it rained heavily,) + main clause (the event continued).' },
+        { sentence: 'If you practice regularly, your fluency will improve.', words: ['improve.', 'regularly,', 'If', 'will', 'practice', 'fluency', 'you', 'your'], exp: 'First conditional: If-clause (present simple) + result clause (will + verb).' },
+        { sentence: 'The book that you recommended was fascinating.', words: ['fascinating.', 'you', 'The', 'was', 'that', 'recommended', 'book'], exp: 'Relative clause "that you recommended" modifies the subject "The book".' },
+        { sentence: 'She decided to major in computer science.', words: ['science.', 'major', 'She', 'computer', 'to', 'in', 'decided'], exp: 'Verb "decided" is followed by infinitive "to major in" + field of study.' },
+        { sentence: 'Teamwork helps students solve complex problems.', words: ['problems.', 'students', 'Teamwork', 'complex', 'solve', 'helps'], exp: 'Subject (Teamwork) + verb (helps) + object (students) + bare infinitive (solve complex problems).' },
+        { sentence: 'Could you please explain that concept again?', words: ['again?', 'please', 'Could', 'concept', 'explain', 'that', 'you'], exp: 'Polite request: Could + subject (you) + please + base verb (explain) + object.' },
+        { sentence: 'By working together, we achieved our goal.', words: ['goal.', 'together,', 'By', 'our', 'working', 'achieved', 'we'], exp: 'Prepositional gerund phrase (By working together,) + main clause (we achieved our goal).' },
+        { sentence: 'Critical thinking is essential for academic success.', words: ['success.', 'essential', 'Critical', 'academic', 'is', 'for', 'thinking'], exp: 'Subject (Critical thinking) + is + adjective (essential) + prepositional phrase.' },
+        { sentence: 'He asked me where the conference was.', words: ['was.', 'me', 'He', 'conference', 'the', 'where', 'asked'], exp: 'Reported question uses statement word order: "...where the conference was."' },
+        { sentence: 'Neither option seemed practical at the time.', words: ['time.', 'seemed', 'Neither', 'the', 'practical', 'at', 'option'], exp: 'Subject (Neither option) + verb (seemed) + adjective (practical) + prepositional phrase.' }
+      ],
+      level3: [
+        { sentence: 'Had we known earlier, we would have joined.', words: ['joined.', 'known', 'Had', 'have', 'earlier,', 'would', 'we', 'we'], exp: 'Inverted third conditional: Had + subject + past participle, subject + would have + past participle.' },
+        { sentence: 'The research findings were published in a journal.', words: ['journal.', 'findings', 'The', 'a', 'published', 'in', 'were', 'research'], exp: 'Passive voice: Subject (The research findings) + were published + prepositional phrase.' },
+        { sentence: 'She speaks English as fluently as a native.', words: ['native.', 'English', 'She', 'a', 'fluently', 'as', 'speaks', 'as'], exp: 'Equative comparison uses "as + adverb (fluently) + as".' },
+        { sentence: 'Despite facing many obstacles, the team persevered.', words: ['persevered.', 'many', 'Despite', 'team', 'obstacles,', 'the', 'facing'], exp: '"Despite" + gerund phrase (facing many obstacles,) + main clause.' },
+        { sentence: 'Students who manage their time well feel calmer.', words: ['calmer.', 'manage', 'Students', 'feel', 'time', 'well', 'their', 'who'], exp: 'Defining relative clause "who manage their time well" describes "Students".' },
+        { sentence: 'It is vital that every voice be heard.', words: ['heard.', 'vital', 'It', 'be', 'every', 'voice', 'that', 'is'], exp: 'Mandative subjunctive after "It is vital that..." uses base verb "be".' },
+        { sentence: 'Rarely have I witnessed such remarkable dedication.', words: ['dedication.', 'I', 'Rarely', 'remarkable', 'witnessed', 'such', 'have'], exp: 'Negative adverb "Rarely" at the beginning triggers inversion ("have I witnessed").' },
+        { sentence: 'The seminar focused on sustainable urban development.', words: ['development.', 'focused', 'The', 'urban', 'on', 'sustainable', 'seminar'], exp: 'Subject (The seminar) + phrasal verb (focused on) + noun phrase.' },
+        { sentence: 'Having finished the exam, she left the hall.', words: ['hall.', 'the', 'Having', 'the', 'left', 'exam,', 'she', 'finished'], exp: 'Perfect participle clause (Having finished the exam,) + main clause.' },
+        { sentence: 'Accurate data analysis strengthens any scientific argument.', words: ['argument.', 'analysis', 'Accurate', 'scientific', 'strengthens', 'any', 'data'], exp: 'Compound subject (Accurate data analysis) + verb (strengthens) + object.' }
+      ],
+      level4: [
+        { sentence: 'Not only did she excel academically, she also led clubs.', words: ['clubs.', 'did', 'Not', 'led', 'excel', 'also', 'academically,', 'she', 'only', 'she'], exp: 'Negative inversion: Not only + auxiliary (did) + subject (she) + base verb (excel).' },
+        { sentence: 'Seldom does an opportunity of this magnitude arise.', words: ['arise.', 'an', 'Seldom', 'magnitude', 'of', 'this', 'opportunity', 'does'], exp: 'Negative adverbial "Seldom" requires subject-auxiliary inversion ("does an opportunity... arise").' },
+        { sentence: 'The hypothesis was corroborated by independent empirical evidence.', words: ['evidence.', 'was', 'The', 'empirical', 'corroborated', 'independent', 'by', 'hypothesis'], exp: 'Academic passive structure: Subject + was corroborated by + agent.' },
+        { sentence: 'Were the policy implemented, costs would decline substantially.', words: ['substantially.', 'policy', 'Were', 'decline', 'implemented,', 'would', 'costs', 'the'], exp: 'Inverted second conditional: Were + subject + past participle, subject + would + verb.' },
+        { sentence: 'Ambiguous phrasing often undermines the clarity of essays.', words: ['essays.', 'often', 'Ambiguous', 'of', 'the', 'clarity', 'undermines', 'phrasing'], exp: 'Subject (Ambiguous phrasing) + adverb (often) + verb (undermines) + object.' },
+        { sentence: 'Scholars must scrutinize sources before citing them publicly.', words: ['publicly.', 'scrutinize', 'Scholars', 'them', 'before', 'citing', 'sources', 'must'], exp: 'Subject + modal (must) + verb (scrutinize) + object + temporal clause.' },
+        { sentence: 'Little did they realize how profoundly things would change.', words: ['change.', 'did', 'Little', 'would', 'realize', 'things', 'profoundly', 'how', 'they'], exp: 'Negative inversion with "Little": Little + did + subject + base verb.' },
+        { sentence: 'Consensus emerged only after hours of rigorous debate.', words: ['debate.', 'emerged', 'Consensus', 'rigorous', 'after', 'of', 'hours', 'only'], exp: 'Subject (Consensus) + verb (emerged) + adverbial time phrase.' },
+        { sentence: 'Her eloquent keynote address resonated with the entire audience.', words: ['audience.', 'keynote', 'Her', 'entire', 'address', 'the', 'with', 'resonated', 'eloquent'], exp: 'Subject (Her eloquent keynote address) + verb (resonated with) + object.' },
+        { sentence: 'Pragmatic solutions balance ideal principles with real constraints.', words: ['constraints.', 'solutions', 'Pragmatic', 'real', 'principles', 'with', 'ideal', 'balance'], exp: 'Plural subject (Pragmatic solutions) + verb (balance) + object + prepositional phrase.' }
+      ]
+    };
+
+    const state = {
+      screen: 'welcome',
+      currentGameId: null,
+      currentLevelId: null,
+      questions: [],
+      currentIndex: 0,
+      score: 0,
+      answeredCurrent: false,
+      userHistory: [],
+      scrambleSelected: []
+    };
+
+    window.onload = function() {
+      renderGamesGrid();
+      navigateTo('welcome');
+    };
+
+    function navigateTo(screenName) {
+      state.screen = screenName;
+      const screens = ['welcome-screen', 'menu-screen', 'level-screen', 'game-screen', 'results-screen'];
+      screens.forEach(id => document.getElementById(id).classList.add('hidden'));
+
+      const header = document.getElementById('app-header');
+      if (screenName === 'welcome') {
+        header.classList.add('hidden');
+        document.getElementById('welcome-screen').classList.remove('hidden');
+      } else {
+        header.classList.remove('hidden');
+        document.getElementById(`${screenName}-screen`).classList.remove('hidden');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderGamesGrid() {
+      const grid = document.getElementById('games-grid');
+      grid.innerHTML = GAMES.map((game, idx) => `
+        <div 
+          onclick="selectGame('${game.id}')" 
+          class="group bg-white rounded-3xl p-6 sm:p-7 shadow-md hover:shadow-2xl border-2 border-slate-200/80 hover:border-auis-gold transition-all duration-300 transform hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <div class="w-14 h-14 rounded-2xl bg-auis-blue text-auis-goldBright flex items-center justify-center shadow-md group-hover:bg-auis-gold group-hover:text-auis-navy transition-colors duration-300">
+                ${game.icon}
+              </div>
+              <span class="px-3 py-1 rounded-full bg-auis-goldLight text-auis-blue text-xs font-bold border border-auis-gold/40">
+                ${game.badge}
+              </span>
+            </div>
+
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Game 0${idx + 1}</div>
+            <h3 class="text-xl font-extrabold text-auis-blue group-hover:text-auis-lightBlue mb-2.5 transition-colors">
+              ${game.title}
+            </h3>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+              ${game.shortDesc}
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-bold text-auis-blue group-hover:text-auis-gold transition-colors">
+            <span>5 Levels • 10 Questions</span>
+            <span class="inline-flex items-center gap-1">
+              Play
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectGame(gameId) {
+      state.currentGameId = gameId;
+      const game = GAMES.find(g => g.id === gameId);
+
+      document.getElementById('header-context').innerHTML = `
+        <span class="text-blue-200">Selected Game:</span>
+        <span class="text-auis-goldBright font-bold">${game.title}</span>
+      `;
+
+      document.getElementById('selected-game-banner').innerHTML = `
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/10 border border-auis-gold/50 text-auis-goldBright flex items-center justify-center shrink-0">
+          ${game.icon}
+        </div>
+        <div class="text-center sm:text-left">
+          <span class="inline-block px-3 py-0.5 rounded-full bg-auis-gold/20 text-auis-goldBright text-xs font-bold uppercase tracking-wider mb-1.5">
+            ${game.badge}
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-1">${game.title}</h2>
+          <p class="text-blue-100 text-sm sm:text-base">${game.shortDesc}</p>
+        </div>
+      `;
+
+      const levelsGrid = document.getElementById('levels-grid');
+      levelsGrid.innerHTML = LEVELS.map((lvl, i) => `
+        <button 
+          onclick="startLevel('${gameId}', '${lvl.id}')" 
+          class="group text-left bg-white hover:bg-auis-blue rounded-2xl p-5 shadow-md hover:shadow-xl border-2 border-slate-200 hover:border-auis-gold transition-all duration-300 flex flex-col justify-between cursor-pointer"
+        >
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="w-9 h-9 rounded-xl bg-auis-blue group-hover:bg-auis-gold text-white group-hover:text-auis-navy font-extrabold text-sm flex items-center justify-center transition-colors">
+                ${i === 0 ? 'F' : i}
+              </span>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-100 group-hover:bg-white/15 text-slate-600 group-hover:text-auis-goldBright transition-colors">
+                ${lvl.tag}
+              </span>
+            </div>
+            <h4 class="text-lg font-extrabold text-auis-blue group-hover:text-white mb-1.5 transition-colors">
+              ${lvl.name}
+            </h4>
+            <p class="text-xs text-slate-500 group-hover:text-blue-100 leading-relaxed mb-4 transition-colors">
+              ${lvl.desc}
+            </p>
+          </div>
+          <div class="text-xs font-bold text-auis-gold flex items-center justify-between pt-3 border-t border-slate-100 group-hover:border-white/15">
+            <span>10 Questions</span>
+            <span>Start →</span>
+          </div>
+        </button>
+      `).join('');
+
+      navigateTo('level');
+    }
+
+    function startLevel(gameId, levelId) {
+      state.currentGameId = gameId;
+      state.currentLevelId = levelId;
+      state.currentIndex = 0;
+      state.score = 0;
+      state.answeredCurrent = false;
+      state.userHistory = [];
+      state.scrambleSelected = [];
+
+      if (gameId === 'vocabulary') {
+        state.questions = VOCAB_BANK[levelId].map(item => ({ ...item }));
+      } else if (gameId === 'grammar') {
+        state.questions = GRAMMAR_BANK[levelId].map(item => ({ ...item }));
+      } else if (gameId === 'spelling') {
+        state.questions = SPELLING_BANK[levelId].map(item => ({ ...item }));
+      } else if (gameId === 'reading') {
+        const passages = READING_BANK[levelId];
+        const flat = [];
+        passages.forEach((p, pIdx) => {
+          p.questions.forEach((qObj, qIdx) => {
+            flat.push({
+              passageIndex: pIdx + 1,
+              passageTitle: p.title,
+              passageText: p.text,
+              questionNumInPassage: qIdx + 1,
+              q: qObj.q,
+              options: qObj.options,
+              answer: qObj.answer,
+              exp: qObj.exp
+            });
+          });
+        });
+        state.questions = flat;
+      } else if (gameId === 'scramble') {
+        state.questions = SCRAMBLE_BANK[levelId].map(item => ({
+          ...item,
+          words: [...item.words]
+        }));
+      }
+
+      const game = GAMES.find(g => g.id === gameId);
+      const level = LEVELS.find(l => l.id === levelId);
+
+      document.getElementById('play-game-badge').textContent = game.title;
+      document.getElementById('play-level-badge').textContent = level.name;
+      document.getElementById('live-score').textContent = '0';
+
+      navigateTo('game');
+      renderCurrentQuestion();
+    }
+
+    function restartCurrentLevel() {
+      startLevel(state.currentGameId, state.currentLevelId);
+    }
+
+    function renderCurrentQuestion() {
+      state.answeredCurrent = false;
+      state.scrambleSelected = [];
+
+      const idx = state.currentIndex;
+      const total = state.questions.length;
+      const qData = state.questions[idx];
+
+      document.getElementById('q-current').textContent = idx + 1;
+      document.getElementById('progress-bar').style.width = `${((idx + 1) / total) * 100}%`;
+      document.getElementById('feedback-banner').classList.add('hidden');
+
+      const container = document.getElementById('question-container');
+
+      if (state.currentGameId === 'vocabulary') {
+        container.innerHTML = `
+          <div class="text-center mb-8">
+            <span class="inline-block px-3 py-1 rounded-full bg-auis-blue/10 text-auis-blue text-xs font-bold uppercase tracking-wider mb-3">
+              Select the Correct Meaning
+            </span>
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-auis-goldLight border-2 border-auis-gold flex items-center justify-center text-4xl shadow-sm mb-4">
+              ${qData.emoji}
+            </div>
+            <h3 class="font-serif text-3xl sm:text-4xl font-extrabold text-auis-blue tracking-tight">
+              "${qData.word}"
+            </h3>
+          </div>
+
+          <div class="grid grid-cols-1 gap-3.5 max-w-2xl mx-auto">
+            ${qData.options.map((opt, optIdx) => `
+              <button 
+                id="opt-btn-${optIdx}"
+                onclick="submitMultipleChoice(${optIdx})"
+                class="option-btn w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 hover:border-auis-blue hover:bg-blue-50/50 transition-all flex items-center gap-4 group cursor-pointer"
+              >
+                <span class="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-auis-blue group-hover:text-white text-auis-blue font-extrabold text-sm flex items-center justify-center shrink-0 transition-colors">
+                  ${String.fromCharCode(65 + optIdx)}
+                </span>
+                <span class="font-semibold text-slate-800 text-sm sm:text-base">${opt}</span>
+              </button>
+            `).join('')}
+          </div>
+        `;
+      } else if (state.currentGameId === 'grammar') {
+        container.innerHTML = `
+          <div class="mb-7">
+            <span class="inline-block px-3 py-1 rounded-full bg-red-50 text-red-700 border border-red-200 text-xs font-bold uppercase tracking-wider mb-3">
+              Spot & Fix the Grammar Mistake
+            </span>
+            <div class="p-5 rounded-2xl bg-red-50/70 border-2 border-red-200/80">
+              <div class="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">Incorrect Sentence:</div>
+              <p class="text-lg sm:text-xl font-bold text-slate-900">
+                “${qData.wrong}”
+              </p>
+            </div>
+          </div>
+
+          <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">
+            Choose the grammatically correct version:
+          </div>
+
+          <div class="grid grid-cols-1 gap-3">
+            ${qData.options.map((opt, optIdx) => `
+              <button 
+                id="opt-btn-${optIdx}"
+                onclick="submitMultipleChoice(${optIdx})"
+                class="option-btn w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-auis-blue hover:bg-blue-50/50 transition-all flex items-center gap-4 group cursor-pointer"
+              >
+                <span class="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-auis-blue group-hover:text-white text-auis-blue font-extrabold text-sm flex items-center justify-center shrink-0 transition-colors">
+                  ${String.fromCharCode(65 + optIdx)}
+                </span>
+                <span class="font-semibold text-slate-800 text-sm sm:text-base">${opt}</span>
+              </button>
+            `).join('')}
+          </div>
+        `;
+      } else if (state.currentGameId === 'spelling') {
+        const formattedMasked = qData.masked.split('').map(ch => 
+          ch === '_' 
+            ? `<span class="inline-block w-7 sm:w-9 border-b-4 border-auis-gold text-auis-goldBright mx-0.5 text-center">_</span>` 
+            : `<span class="mx-0.5">${ch}</span>`
+        ).join('');
+
+        container.innerHTML = `
+          <div class="text-center max-w-xl mx-auto">
+            <span class="inline-block px-3 py-1 rounded-full bg-auis-blue/10 text-auis-blue text-xs font-bold uppercase tracking-wider mb-4">
+              Complete the Missing Letters
+            </span>
+
+            <div class="py-6 px-4 rounded-2xl bg-auis-blue text-white shadow-inner mb-5">
+              <div class="text-3xl sm:text-5xl font-extrabold tracking-widest font-mono">
+                ${formattedMasked}
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-auis-goldLight/70 border border-auis-gold/40 text-sm text-slate-700 mb-6">
+              <span class="font-bold text-auis-blue">Clue:</span> ${qData.hint}
+            </div>
+
+            <form onsubmit="submitSpelling(event)" class="space-y-4">
+              <div>
+                <label for="spelling-input" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                  Type the complete word (or the missing letters "${'_'.repeat(qData.missing.length)}"):
+                </label>
+                <input 
+                  id="spelling-input"
+                  type="text" 
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  placeholder="Type your answer here..."
+                  class="w-full max-w-md mx-auto text-center text-xl sm:text-2xl font-bold text-auis-blue px-5 py-3.5 rounded-2xl border-2 border-slate-300 focus:border-auis-gold focus:outline-none shadow-sm"
+                  required
+                />
+              </div>
+
+              <button 
+                id="spelling-submit-btn"
+                type="submit"
+                class="bg-auis-blue hover:bg-auis-lightBlue text-white font-extrabold px-8 py-3.5 rounded-xl shadow-md transition-all cursor-pointer"
+              >
+                Check Spelling
+              </button>
+            </form>
+          </div>
+        `;
+        setTimeout(() => {
+          const inp = document.getElementById('spelling-input');
+          if (inp) inp.focus();
+        }, 50);
+      } else if (state.currentGameId === 'reading') {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <div class="lg:col-span-6 bg-auis-offwhite rounded-2xl p-5 sm:p-6 border-2 border-auis-blue/15">
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="px-2.5 py-1 rounded-md bg-auis-blue text-white text-xs font-bold">
+                  Story ${qData.passageIndex} of 2
+                </span>
+                <span class="text-xs font-bold text-auis-gold">
+                  Question ${qData.questionNumInPassage} of 5 for this story
+                </span>
+              </div>
+              <h3 class="font-serif text-lg sm:text-xl font-extrabold text-auis-blue mb-3">
+                ${qData.passageTitle}
+              </h3>
+              <div class="text-slate-700 text-sm sm:text-base leading-relaxed max-h-64 lg:max-h-96 overflow-y-auto custom-scroll pr-2">
+                ${qData.passageText}
+              </div>
+            </div>
+
+            <div class="lg:col-span-6">
+              <span class="inline-block px-3 py-1 rounded-full bg-auis-goldLight text-auis-blue border border-auis-gold/40 text-xs font-bold uppercase tracking-wider mb-3">
+                Reading Comprehension
+              </span>
+              <h4 class="text-lg sm:text-xl font-extrabold text-slate-900 mb-5 leading-snug">
+                ${qData.q}
+              </h4>
+
+              <div class="space-y-3">
+                ${qData.options.map((opt, optIdx) => `
+                  <button 
+                    id="opt-btn-${optIdx}"
+                    onclick="submitMultipleChoice(${optIdx})"
+                    class="option-btn w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-auis-blue hover:bg-blue-50/50 transition-all flex items-center gap-3.5 group cursor-pointer"
+                  >
+                    <span class="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-auis-blue group-hover:text-white text-auis-blue font-extrabold text-xs flex items-center justify-center shrink-0 transition-colors">
+                      ${String.fromCharCode(65 + optIdx)}
+                    </span>
+                    <span class="font-semibold text-slate-800 text-sm">${opt}</span>
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (state.currentGameId === 'scramble') {
+        container.innerHTML = `
+          <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-6">
+              <span class="inline-block px-3 py-1 rounded-full bg-auis-blue/10 text-auis-blue text-xs font-bold uppercase tracking-wider mb-2">
+                Sentence Scramble Challenge
+              </span>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-auis-blue">
+                Tap the words in the right order to build the sentence
+              </h3>
+            </div>
+
+            <div class="mb-5">
+              <div class="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                <span>Your Sentence:</span>
+                <button onclick="clearScramble()" class="text-red-600 hover:underline cursor-pointer">Clear All</button>
+              </div>
+              <div id="scramble-answer-zone" class="min-h-[76px] p-4 rounded-2xl bg-auis-offwhite border-2 border-dashed border-auis-blue/40 flex flex-wrap items-center gap-2.5">
+                <span class="text-slate-400 text-sm italic">Click words below to place them here...</span>
+              </div>
+            </div>
+
+            <div class="mb-7">
+              <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Available Words:</div>
+              <div id="scramble-pool-zone" class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-center gap-2.5">
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button 
+                id="scramble-submit-btn"
+                onclick="submitScramble()"
+                class="bg-auis-blue hover:bg-auis-lightBlue text-white font-extrabold px-8 py-3.5 rounded-xl shadow-md transition-all cursor-pointer"
+              >
+                Check Sentence
+              </button>
+            </div>
+          </div>
+        `;
+        renderScrambleZones();
+      }
+    }
+
+    function submitMultipleChoice(selectedIdx) {
+      if (state.answeredCurrent) return;
+      state.answeredCurrent = true;
+
+      const qData = state.questions[state.currentIndex];
+      const correctIdx = qData.answer;
+      const isCorrect = selectedIdx === correctIdx;
+
+      if (isCorrect) {
+        state.score++;
+        document.getElementById('live-score').textContent = state.score;
+      }
+
+      qData.options.forEach((_, idx) => {
+        const btn = document.getElementById(`opt-btn-${idx}`);
+        btn.disabled = true;
+        btn.classList.remove('hover:border-auis-blue', 'hover:bg-blue-50/50', 'cursor-pointer');
+
+        if (idx === correctIdx) {
+          btn.classList.remove('border-slate-200');
+          btn.classList.add('border-emerald-500', 'bg-emerald-50');
+          btn.querySelector('span:first-child').classList.add('bg-emerald-600', 'text-white');
+        } else if (idx === selectedIdx && !isCorrect) {
+          btn.classList.remove('border-slate-200');
+          btn.classList.add('border-red-500', 'bg-red-50');
+          btn.querySelector('span:first-child').classList.add('bg-red-600', 'text-white');
+        } else {
+          btn.classList.add('opacity-60');
+        }
+      });
+
+      let promptLabel = '';
+      if (state.currentGameId === 'vocabulary') promptLabel = `Meaning of "${qData.word}"`;
+      else if (state.currentGameId === 'grammar') promptLabel = `Fix: "${qData.wrong}"`;
+      else if (state.currentGameId === 'reading') promptLabel = qData.q;
+
+      state.userHistory.push({
+        prompt: promptLabel,
+        userAnswer: qData.options[selectedIdx],
+        correctAnswer: qData.options[correctIdx],
+        isCorrect,
+        explanation: qData.exp
+      });
+
+      showFeedback(isCorrect, qData.options[correctIdx], qData.exp);
+    }
+
+    function submitSpelling(event) {
+      event.preventDefault();
+      if (state.answeredCurrent) return;
+
+      const inputEl = document.getElementById('spelling-input');
+      const rawVal = inputEl.value.trim();
+      if (!rawVal) return;
+
+      state.answeredCurrent = true;
+      inputEl.disabled = true;
+      document.getElementById('spelling-submit-btn').disabled = true;
+
+      const qData = state.questions[state.currentIndex];
+      const normalizedInput = rawVal.toLowerCase();
+      const targetFull = qData.full.toLowerCase();
+      const targetMissing = qData.missing.toLowerCase();
+
+      const isCorrect = (normalizedInput === targetFull) || (normalizedInput === targetMissing);
+
+      let displayUserWord = rawVal;
+      if (normalizedInput === targetMissing) {
+        displayUserWord = qData.full;
+      }
+
+      if (isCorrect) {
+        state.score++;
+        document.getElementById('live-score').textContent = state.score;
+        inputEl.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-800');
+      } else {
+        inputEl.classList.add('border-red-500', 'bg-red-50', 'text-red-800');
+      }
+
+      const explanation = `Correct spelling: "${qData.full}" (missing letters: "${qData.missing}"). ${qData.hint}`;
+
+      state.userHistory.push({
+        prompt: `Complete: ${qData.masked}`,
+        userAnswer: displayUserWord,
+        correctAnswer: qData.full,
+        isCorrect,
+        explanation
+      });
+
+      showFeedback(isCorrect, qData.full, explanation);
+    }
+
+    function renderScrambleZones() {
+      const qData = state.questions[state.currentIndex];
+      const answerZone = document.getElementById('scramble-answer-zone');
+      const poolZone = document.getElementById('scramble-pool-zone');
+
+      if (!answerZone || !poolZone) return;
+
+      if (state.scrambleSelected.length === 0) {
+        answerZone.innerHTML = `<span class="text-slate-400 text-sm italic">Click words below to place them here...</span>`;
+      } else {
+        answerZone.innerHTML = state.scrambleSelected.map((wordIdx, pos) => `
+          <button 
+            onclick="toggleScrambleWord(${wordIdx})"
+            class="px-4 py-2 rounded-xl bg-auis-blue text-white font-bold text-sm sm:text-base shadow hover:bg-red-600 transition-colors cursor-pointer"
+            title="Click to remove"
+          >
+            ${qData.words[wordIdx]}
+          </button>
+        `).join('');
+      }
+
+      poolZone.innerHTML = qData.words.map((word, wordIdx) => {
+        const isUsed = state.scrambleSelected.includes(wordIdx);
+        return `
+          <button 
+            onclick="toggleScrambleWord(${wordIdx})"
+            ${isUsed ? 'disabled' : ''}
+            class="px-4 py-2 rounded-xl font-bold text-sm sm:text-base transition-all ${
+              isUsed 
+                ? 'bg-slate-200 text-slate-400 border border-slate-200 cursor-default opacity-40' 
+                : 'bg-white text-auis-blue border-2 border-auis-blue/25 hover:border-auis-gold hover:bg-auis-goldLight shadow-sm cursor-pointer'
+            }"
+          >
+            ${word}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function toggleScrambleWord(wordIdx) {
+      if (state.answeredCurrent) return;
+      const existingPos = state.scrambleSelected.indexOf(wordIdx);
+      if (existingPos > -1) {
+        state.scrambleSelected.splice(existingPos, 1);
+      } else {
+        state.scrambleSelected.push(wordIdx);
+      }
+      renderScrambleZones();
+    }
+
+    function clearScramble() {
+      if (state.answeredCurrent) return;
+      state.scrambleSelected = [];
+      renderScrambleZones();
+    }
+
+    function submitScramble() {
+      if (state.answeredCurrent) return;
+      const qData = state.questions[state.currentIndex];
+
+      if (state.scrambleSelected.length === 0) return;
+
+      state.answeredCurrent = true;
+      document.getElementById('scramble-submit-btn').disabled = true;
+
+      const userSentence = state.scrambleSelected.map(i => qData.words[i]).join(' ');
+      const isCorrect = userSentence.trim() === qData.sentence.trim();
+
+      if (isCorrect) {
+        state.score++;
+        document.getElementById('live-score').textContent = state.score;
+      }
+
+      state.userHistory.push({
+        prompt: `Unscramble: [ ${qData.words.join(' / ')} ]`,
+        userAnswer: userSentence,
+        correctAnswer: qData.sentence,
+        isCorrect,
+        explanation: qData.exp
+      });
+
+      showFeedback(isCorrect, qData.sentence, qData.exp);
+    }
+
+    function showFeedback(isCorrect, correctAnswerText, explanationText) {
+      const banner = document.getElementById('feedback-banner');
+      const icon = document.getElementById('feedback-icon');
+      const title = document.getElementById('feedback-title');
+      const text = document.getElementById('feedback-text');
+      const nextLabel = document.getElementById('next-q-label');
+
+      banner.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-400', 'bg-red-50', 'border-red-400');
+      icon.classList.remove('bg-emerald-600', 'bg-red-600', 'text-white');
+
+      if (isCorrect) {
+        banner.classList.add('bg-emerald-50', 'border-emerald-400');
+        icon.classList.add('bg-emerald-600', 'text-white');
+        icon.textContent = '✓';
+        title.className = 'font-extrabold text-base sm:text-lg text-emerald-900';
+        title.textContent = 'Excellent! Correct Answer.';
+        text.className = 'text-sm mt-0.5 text-emerald-800';
+        text.textContent = explanationText;
+      } else {
+        banner.classList.add('bg-red-50', 'border-red-400');
+        icon.classList.add('bg-red-600', 'text-white');
+        icon.textContent = '✕';
+        title.className = 'font-extrabold text-base sm:text-lg text-red-900';
+        title.textContent = `Not quite — Correct Answer: ${correctAnswerText}`;
+        text.className = 'text-sm mt-0.5 text-red-800';
+        text.textContent = explanationText;
+      }
+
+      nextLabel.textContent = (state.currentIndex === state.questions.length - 1) 
+        ? 'See Final Results' 
+        : 'Next Question';
+    }
+
+    function nextQuestion() {
+      if (state.currentIndex < state.questions.length - 1) {
+        state.currentIndex++;
+        renderCurrentQuestion();
+      } else {
+        showResultsScreen();
+      }
+    }
+
+    function showResultsScreen() {
+      const total = state.questions.length;
+      const score = state.score;
+      const percent = Math.round((score / total) * 100);
+      const game = GAMES.find(g => g.id === state.currentGameId);
+      const level = LEVELS.find(l => l.id === state.currentLevelId);
+
+      document.getElementById('res-badge').textContent = `${game.title} • ${level.name}`;
+      document.getElementById('res-score').textContent = `${score}/${total}`;
+      document.getElementById('res-percent').textContent = `${percent}% Score`;
+
+      let heading = 'Keep Practicing!';
+      let sub = 'Review your mistakes below—every error is a stepping stone to fluency.';
+      if (score === 10) {
+        heading = 'Outstanding! Perfect Score!';
+        sub = 'You mastered every single question in this level. Ready for the next challenge?';
+      } else if (score >= 8) {
+        heading = 'Impressive Work!';
+        sub = 'You have a strong command of this level. Check any minor corrections below.';
+      } else if (score >= 5) {
+        heading = 'Good Progress!';
+        sub = 'Solid effort! Study the corrections below to boost your score even higher.';
+      }
+
+      document.getElementById('res-heading').textContent = heading;
+      document.getElementById('res-sub').textContent = sub;
+
+      document.getElementById('res-counts').innerHTML = `
+        <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">✓ ${score} Correct</span>
+        <span class="px-3 py-1 rounded-full bg-red-100 text-red-800">✕ ${total - score} Incorrect</span>
+      `;
+
+      const reviewList = document.getElementById('review-list');
+      reviewList.innerHTML = state.userHistory.map((item, i) => `
+        <div class="p-4 sm:p-5 rounded-2xl border-2 ${item.isCorrect ? 'border-emerald-200 bg-emerald-50/30' : 'border-red-200 bg-red-50/40'}">
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-lg ${item.isCorrect ? 'bg-emerald-600' : 'bg-red-600'} text-white font-extrabold text-xs flex items-center justify-center shrink-0">
+                ${i + 1}
+              </span>
+              <h4 class="font-bold text-slate-900 text-sm sm:text-base">${item.prompt}</h4>
+            </div>
+            <span class="shrink-0 text-xs font-extrabold px-2.5 py-1 rounded-full ${item.isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
+              ${item.isCorrect ? 'Correct' : 'Needs Correction'}
+            </span>
+          </div>
+
+          <div class="ml-9 space-y-1.5 text-sm">
+            <div>
+              <span class="font-semibold text-slate-500">Your Answer:</span>
+              <span class="font-bold ${item.isCorrect ? 'text-emerald-700' : 'text-red-700 line-through'}">
+                ${item.userAnswer}
+              </span>
+            </div>
+
+            ${!item.isCorrect ? `
+              <div>
+                <span class="font-semibold text-slate-500">Correct Answer:</span>
+                <span class="font-extrabold text-emerald-700">${item.correctAnswer}</span>
+              </div>
+            ` : ''}
+
+            <p class="text-xs sm:text-sm text-slate-600 bg-white/80 p-2.5 rounded-xl border border-slate-200/70 mt-2">
+              <span class="font-bold text-auis-blue">Explanation:</span> ${item.explanation}
+            </p>
+          </div>
+        </div>
+      `).join('');
+
+      navigateTo('results');
+    }
+  </script>
+</body>
+</html>
