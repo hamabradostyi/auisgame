@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AUIS English Learning Hub</title>
+  <title>AUIS English Learning</title>
   <!-- Load Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Load Google Fonts: Inter & Playfair Display -->
@@ -89,7 +89,7 @@
     <div class="absolute -bottom-32 -right-32 w-[28rem] h-[28rem] rounded-full border-2 border-auis-gold/15 pointer-events-none"></div>
 
     <div class="max-w-3xl w-full text-center z-10 animate-fade-in flex flex-col items-center">
-      <div class="bg-white/95 backdrop-blur-md px-6 py-4 sm:px-10 sm:py-5 rounded-2xl shadow-2xl border-2 border-auis-gold mb-8 inline-flex items-center justify-center max-w-full">
+      <div class="bg-white/95 backdrop-blur-md px-6 py-4 sm:px-10 sm:py-5 rounded-2xl shadow-2xl border-2 border-auis-gold mb-10 inline-flex items-center justify-center max-w-full">
         <img 
           src="https://www.aaicu.org/wp-content/uploads/2024/11/AUIS-trilingual-logo-2-1024x103.png" 
           alt="American University of Iraq, Sulaimani (AUIS) Logo" 
@@ -101,30 +101,24 @@
         </div>
       </div>
 
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-auis-gold/20 border border-auis-gold/50 text-auis-goldBright text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4">
-        <span>★</span> Interactive Language Learning Arena <span>★</span>
-      </div>
-
-      <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-4 drop-shadow-md">
+      <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-5 drop-shadow-md">
         Welcome
       </h1>
 
-      <p class="text-blue-100 text-base sm:text-lg md:text-xl max-w-xl mx-auto leading-relaxed mb-10 font-normal">
-        Master English vocabulary, grammar, spelling, reading comprehension, and sentence structure through 5 interactive challenges tailored from <span class="text-auis-goldBright font-semibold">Foundation</span> to <span class="text-auis-goldBright font-semibold">Level 4</span>.
-      </p>
+      <div class="text-auis-goldBright font-serif text-xl sm:text-2xl md:text-3xl font-bold tracking-wide leading-snug mb-10">
+        <div>Learn Today</div>
+        <div>Lead Tomorrow</div>
+      </div>
 
       <button 
         onclick="navigateTo('menu')" 
-        class="btn-gold-glow group relative inline-flex items-center gap-3 bg-gradient-to-r from-auis-gold to-auis-goldBright hover:from-auis-goldBright hover:to-auis-gold text-auis-navy font-extrabold text-lg sm:text-xl px-9 py-4 rounded-2xl shadow-xl transition-all duration-300 transform hover:-translate-y-1 active:scale-95 cursor-pointer"
+        class="btn-gold-glow group relative inline-flex items-center justify-center bg-gradient-to-r from-auis-gold to-auis-goldBright hover:from-auis-goldBright hover:to-auis-gold text-auis-navy font-extrabold text-lg sm:text-xl px-12 py-4 rounded-2xl shadow-xl transition-all duration-300 transform hover:-translate-y-1 active:scale-95 cursor-pointer"
       >
-        <span>Start Learning</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-        </svg>
+        <span>Start</span>
       </button>
 
-      <p class="mt-12 text-xs sm:text-sm text-blue-200/70">
-        Designed for AUIS English Language Learners • 5 Games • 5 Levels • 10 Questions Each
+      <p class="mt-12 text-xs sm:text-sm text-blue-200/80 font-medium tracking-wide">
+        Developed : Muhammad Bradosti
       </p>
     </div>
   </section>
@@ -145,10 +139,13 @@
       </button>
 
       <div id="header-context" class="hidden md:flex items-center gap-2 text-sm font-medium text-blue-100">
-        <span class="text-auis-goldBright font-bold">AUIS English Hub</span>
+        <span class="text-auis-goldBright font-bold">AUIS English Learning</span>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-3">
+        <span class="text-[11px] sm:text-xs text-blue-200/80 font-medium hidden sm:inline">
+          Developed : Muhammad Bradosti
+        </span>
         <button 
           id="nav-games-btn"
           onclick="navigateTo('menu')" 
@@ -160,6 +157,9 @@
           <span>All Games</span>
         </button>
       </div>
+    </div>
+    <div class="sm:hidden text-center pb-1.5 text-[11px] text-blue-200/80 font-medium">
+      Developed : Muhammad Bradosti
     </div>
   </header>
 
@@ -754,6 +754,11 @@
       } else {
         header.classList.remove('hidden');
         document.getElementById(`${screenName}-screen`).classList.remove('hidden');
+        if (screenName === 'menu') {
+          document.getElementById('header-context').innerHTML = `
+            <span class="text-auis-goldBright font-bold">AUIS English Learning</span>
+          `;
+        }
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
