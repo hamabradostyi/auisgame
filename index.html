@@ -172,9 +172,6 @@
       <h2 class="text-3xl sm:text-4xl font-extrabold text-auis-blue mb-3">
         Select an English Learning Game
       </h2>
-      <p class="text-slate-600 text-sm sm:text-base">
-        Pick one of the 5 skill-building games below. Each game features 5 progressive levels and 10 questions per level.
-      </p>
     </div>
 
     <div id="games-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -195,7 +192,7 @@
 
     <div class="mb-4">
       <h3 class="text-xl sm:text-2xl font-extrabold text-auis-blue">Select Difficulty Level</h3>
-      <p class="text-slate-600 text-sm">Every level contains 10 questions followed by instant grading and mistake explanations.</p>
+      <p id="level-subtitle" class="text-slate-600 text-sm">Every level contains 10 questions followed by instant grading and mistake explanations.</p>
     </div>
 
     <div id="levels-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -204,21 +201,24 @@
 
   <!-- ==================== 4. ACTIVE GAMEPLAY ARENA ==================== -->
   <section id="game-screen" class="hidden flex-grow max-w-4xl w-full mx-auto px-4 py-6 sm:py-10 animate-fade-in">
-    <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-4 sm:p-5 mb-6">
+    <div id="game-progress-bar-container" class="bg-white rounded-2xl shadow-md border border-slate-200 p-4 sm:p-5 mb-6">
       <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
         <div class="flex items-center gap-2.5">
           <span id="play-game-badge" class="px-3 py-1 rounded-lg bg-auis-blue text-white text-xs font-bold">Game</span>
           <span id="play-level-badge" class="px-3 py-1 rounded-lg bg-auis-goldLight text-auis-blue border border-auis-gold text-xs font-bold">Level</span>
         </div>
         <div class="flex items-center gap-4 text-sm font-bold">
-          <span class="text-slate-600">Question <span id="q-current" class="text-auis-blue text-base">1</span> / 10</span>
+          <span id="q-counter-text" class="text-slate-600">Question <span id="q-current" class="text-auis-blue text-base">1</span> / 10</span>
+          <span id="timer-display-box" class="hidden px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+            ⏳ Time: <span id="time-left">90</span>s
+          </span>
           <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
             Score: <span id="live-score">0</span>
           </span>
         </div>
       </div>
 
-      <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+      <div id="progress-bar-track" class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
         <div id="progress-bar" class="bg-gradient-to-r from-auis-blue to-auis-gold h-full rounded-full transition-all duration-500" style="width: 10%;"></div>
       </div>
     </div>
@@ -271,16 +271,16 @@
           Choose Another Level
         </button>
         <button onclick="navigateTo('menu')" class="px-6 py-3 rounded-xl bg-white text-auis-blue hover:bg-slate-100 font-bold text-sm shadow transition cursor-pointer">
-          All 5 Games
+          All Games
         </button>
       </div>
     </div>
 
-    <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 sm:p-8">
+    <div id="review-card-container" class="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 sm:p-8">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-5 border-b border-slate-200 mb-6">
         <div>
-          <h3 class="text-xl sm:text-2xl font-extrabold text-auis-blue">Answer Review & Corrections</h3>
-          <p class="text-slate-500 text-sm">Review all 10 questions below to learn from any mistakes.</p>
+          <h3 id="review-section-title" class="text-xl sm:text-2xl font-extrabold text-auis-blue">Answer Review & Corrections</h3>
+          <p id="review-section-sub" class="text-slate-500 text-sm">Review all questions below to learn from any mistakes.</p>
         </div>
         <div id="res-counts" class="flex items-center gap-3 text-xs font-bold">
         </div>
@@ -338,6 +338,15 @@
         icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                </svg>`
+      },
+      {
+        id: 'wordbuilder',
+        title: 'Word Builder 18',
+        shortDesc: 'You have 1.5 minutes to make as many words as you can from 18 letters (3-7 letters long).',
+        badge: 'Timed Speed',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+               </svg>`
       }
     ];
 
@@ -348,6 +357,30 @@
       { id: 'level3', name: 'Level 3', tag: 'Upper-Intermediate', desc: 'Complex grammar structures, nuanced meanings, and analytical reading passages.' },
       { id: 'level4', name: 'Level 4', tag: 'Advanced AUIS', desc: 'University-level academic English, subtle syntax, and advanced comprehension.' }
     ];
+
+    // --- WORD BUILDER BANKS (18 letters per level) ---
+    const WORD_BUILDER_BANK = {
+      foundation: {
+        letters: ['A', 'C', 'E', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W', 'Y', 'B', 'D'],
+        validWords: ['CAT', 'DOG', 'PEN', 'BOOK', 'HAT', 'CUP', 'DESK', 'MILK', 'WATER', 'PLAY', 'SCHOOL', 'TEACH', 'HAPPY', 'LEARN', 'STUDY', 'FRIEND', 'APPLE', 'BREAD', 'TABLE', 'HOUSE']
+      },
+      level1: {
+        letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W'],
+        validWords: ['PLANT', 'GARDEN', 'SPRING', 'FLOWER', 'WATER', 'BRIGHT', 'SUMMER', 'HARVEST', 'GROW', 'SEED', 'SOIL', 'GREEN', 'HEALTH', 'COMMUNITY', 'STUDENT', 'CORNER', 'TOMATO', 'MINT']
+      },
+      level2: {
+        letters: ['A', 'C', 'E', 'I', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'V', 'E', 'G', 'D', 'U', 'B'],
+        validWords: ['SYSTEM', 'ENERGY', 'FUTURE', 'PLANET', 'CLIMATE', 'RESOURCE', 'GLOBAL', 'ACTION', 'IMPACT', 'NATURE', 'OCEAN', 'FOREST', 'CARBON', 'BALANCE', 'PROTECT', 'SOLAR', 'WIND', 'CLEAN']
+      },
+      level3: {
+        letters: ['A', 'C', 'E', 'I', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'X', 'Y', 'G', 'D', 'U', 'B'],
+        validWords: ['ANALYZE', 'COMPLEX', 'STRATEGY', 'THEORY', 'METHOD', 'CONTEXT', 'PATTERN', 'INSIGHT', 'FACTOR', 'EVALUATE', 'PROCESS', 'RESEARCH', 'VARIABLE', 'CRITICAL', 'LOGIC', 'SYSTEM', 'EVIDENCE', 'MODEL']
+      },
+      level4: {
+        letters: ['A', 'C', 'E', 'H', 'I', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'G', 'D', 'Y'],
+        validWords: ['PARADIGM', 'INNOVATE', 'ACADEMIC', 'DISCOURSE', 'INTEGRATE', 'SYNTHESIS', 'EMPIRICAL', 'SOCIOLOGY', 'THEOLOGY', 'PHILOSOPHY', 'UNIVERSITY', 'INSTITUTE', 'PROFESSOR', 'SCHOLAR', 'DOCTORATE', 'RESEARCH', 'CURRICULUM', 'SYLLABUS']
+      }
+    };
 
     // --- RANDOMIZED MULTIPLE CHOICE ANSWER BANKS ---
     const VOCAB_BANK = {
@@ -734,7 +767,12 @@
       score: 0,
       answeredCurrent: false,
       userHistory: [],
-      scrambleSelected: []
+      scrambleSelected: [],
+      // Word Builder specific state variables
+      wbTimer: null,
+      wbTimeLeft: 90,
+      wbFoundWords: [],
+      wbLettersData: null
     };
 
     window.onload = function() {
@@ -743,6 +781,10 @@
     };
 
     function navigateTo(screenName) {
+      if (state.wbTimer) {
+        clearInterval(state.wbTimer);
+        state.wbTimer = null;
+      }
       state.screen = screenName;
       const screens = ['welcome-screen', 'menu-screen', 'level-screen', 'game-screen', 'results-screen'];
       screens.forEach(id => document.getElementById(id).classList.add('hidden'));
@@ -790,7 +832,7 @@
           </div>
 
           <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-bold text-auis-blue group-hover:text-auis-gold transition-colors">
-            <span>5 Levels • 10 Questions</span>
+            <span>5 Levels</span>
             <span class="inline-flex items-center gap-1">
               Play
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -824,6 +866,12 @@
         </div>
       `;
 
+      if (gameId === 'wordbuilder') {
+        document.getElementById('level-subtitle').textContent = 'You have 1.5 minutes to make as many words as you can from 18 letters (3-7 letters long).';
+      } else {
+        document.getElementById('level-subtitle').textContent = 'Every level contains 10 questions followed by instant grading and mistake explanations.';
+      }
+
       const levelsGrid = document.getElementById('levels-grid');
       levelsGrid.innerHTML = LEVELS.map((lvl, i) => `
         <button 
@@ -847,7 +895,7 @@
             </p>
           </div>
           <div class="text-xs font-bold text-auis-gold flex items-center justify-between pt-3 border-t border-slate-100 group-hover:border-white/15">
-            <span>10 Questions</span>
+            <span>${gameId === 'wordbuilder' ? '1.5 Min Challenge' : '10 Questions'}</span>
             <span>Start →</span>
           </div>
         </button>
@@ -864,6 +912,31 @@
       state.answeredCurrent = false;
       state.userHistory = [];
       state.scrambleSelected = [];
+      state.wbFoundWords = [];
+
+      const game = GAMES.find(g => g.id === gameId);
+      const level = LEVELS.find(l => l.id === levelId);
+
+      document.getElementById('play-game-badge').textContent = game.title;
+      document.getElementById('play-level-badge').textContent = level.name;
+      document.getElementById('live-score').textContent = '0';
+
+      if (gameId === 'wordbuilder') {
+        state.wbTimeLeft = 90;
+        state.wbLettersData = WORD_BUILDER_BANK[levelId];
+        document.getElementById('timer-display-box').classList.remove('hidden');
+        document.getElementById('q-counter-text').classList.add('hidden');
+        document.getElementById('progress-bar-track').classList.add('hidden');
+        
+        navigateTo('game');
+        renderWordBuilderArena();
+        startWordBuilderTimer();
+        return;
+      } else {
+        document.getElementById('timer-display-box').classList.add('hidden');
+        document.getElementById('q-counter-text').classList.remove('hidden');
+        document.getElementById('progress-bar-track').classList.remove('hidden');
+      }
 
       if (gameId === 'vocabulary') {
         state.questions = VOCAB_BANK[levelId].map(item => ({ ...item }));
@@ -896,19 +969,222 @@
         }));
       }
 
-      const game = GAMES.find(g => g.id === gameId);
-      const level = LEVELS.find(l => l.id === levelId);
-
-      document.getElementById('play-game-badge').textContent = game.title;
-      document.getElementById('play-level-badge').textContent = level.name;
-      document.getElementById('live-score').textContent = '0';
-
       navigateTo('game');
       renderCurrentQuestion();
     }
 
     function restartCurrentLevel() {
       startLevel(state.currentGameId, state.currentLevelId);
+    }
+
+    function startWordBuilderTimer() {
+      if (state.wbTimer) clearInterval(state.wbTimer);
+      document.getElementById('time-left').textContent = state.wbTimeLeft;
+
+      state.wbTimer = setInterval(() => {
+        state.wbTimeLeft--;
+        const timerEl = document.getElementById('time-left');
+        if (timerEl) timerEl.textContent = state.wbTimeLeft;
+
+        if (state.wbTimeLeft <= 0) {
+          clearInterval(state.wbTimer);
+          state.wbTimer = null;
+          showWordBuilderResults();
+        }
+      }, 1000);
+    }
+
+    function renderWordBuilderArena() {
+      const container = document.getElementById('question-container');
+      const data = state.wbLettersData;
+
+      container.innerHTML = `
+        <div class="max-w-xl mx-auto text-center">
+          <span class="inline-block px-3.5 py-1 rounded-full bg-auis-blue/10 text-auis-blue text-xs font-bold uppercase tracking-wider mb-3">
+            Word Builder Challenge (18 Letters)
+          </span>
+          <p class="text-slate-600 text-sm mb-6">
+            You have 1.5 minutes to make as many words as you can from 18 letters. The words must be between 3 and 7 letters long. You can only use each letter once per word.
+          </p>
+
+          <div class="p-5 rounded-2xl bg-auis-offwhite border-2 border-auis-blue/20 mb-6">
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Available 18 Letters:</div>
+            <div class="flex flex-wrap items-center justify-center gap-2">
+              ${data.letters.map(letter => `
+                <span class="w-10 h-10 rounded-xl bg-auis-blue text-auis-goldBright font-extrabold text-base flex items-center justify-center shadow-sm">
+                  ${letter}
+                </span>
+              `).join('')}
+            </div>
+          </div>
+
+          <form onsubmit="submitWordBuilderWord(event)" class="space-y-4 mb-6">
+            <div class="flex gap-2">
+              <input 
+                id="wb-word-input"
+                type="text"
+                autocomplete="off"
+                autocapitalize="characters"
+                spellcheck="false"
+                placeholder="Type a 3-7 letter word..."
+                class="flex-grow text-center text-xl font-bold uppercase tracking-wider text-auis-blue px-5 py-3.5 rounded-2xl border-2 border-slate-300 focus:border-auis-gold focus:outline-none shadow-sm"
+                required
+              />
+              <button 
+                type="submit"
+                class="bg-auis-blue hover:bg-auis-lightBlue text-white font-extrabold px-6 py-3.5 rounded-xl shadow-md transition-all cursor-pointer"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+
+          <div id="wb-feedback" class="text-sm font-bold mb-4 min-h-[24px]"></div>
+
+          <div class="text-left bg-slate-50 p-4 rounded-2xl border border-slate-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Found Words (<span id="wb-found-count">0</span>):</span>
+            </div>
+            <div id="wb-found-list" class="flex flex-wrap gap-2 max-h-36 overflow-y-auto custom-scroll p-1">
+              <span class="text-slate-400 text-xs italic">No words found yet. Start typing above!</span>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <button 
+              onclick="showWordBuilderResults()"
+              class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow transition cursor-pointer"
+            >
+              Finish Challenge Now
+            </button>
+          </div>
+        </div>
+      `;
+
+      setTimeout(() => {
+        const inp = document.getElementById('wb-word-input');
+        if (inp) inp.focus();
+      }, 50);
+    }
+
+    function submitWordBuilderWord(event) {
+      event.preventDefault();
+      const inputEl = document.getElementById('wb-word-input');
+      const val = inputEl.value.trim().toUpperCase();
+      const feedbackEl = document.getElementById('wb-feedback');
+
+      if (!val) return;
+
+      if (val.length < 3 || val.length > 7) {
+        feedbackEl.className = 'text-sm font-bold mb-4 text-red-600';
+        feedbackEl.textContent = '❌ Word must be between 3 and 7 letters long!';
+        inputEl.value = '';
+        return;
+      }
+
+      if (state.wbFoundWords.includes(val)) {
+        feedbackEl.className = 'text-sm font-bold mb-4 text-amber-600';
+        feedbackEl.textContent = '⚠️ You already found this word!';
+        inputEl.value = '';
+        return;
+      }
+
+      // Check if letters are valid from the 18 letters and used only once per word
+      const availableLetters = [...state.wbLettersData.letters];
+      let valid = true;
+      for (let i = 0; i < val.length; i++) {
+        const char = val[i];
+        const idx = availableLetters.indexOf(char);
+        if (idx > -1) {
+          availableLetters.splice(idx, 1); // remove so it's only used once
+        } else {
+          valid = false;
+          break;
+        }
+      }
+
+      if (!valid) {
+        feedbackEl.className = 'text-sm font-bold mb-4 text-red-600';
+        feedbackEl.textContent = '❌ Invalid word or used letters not available in the 18 list!';
+        inputEl.value = '';
+        return;
+      }
+
+      // Check if it's in the valid bank or any valid English word length rule
+      state.wbFoundWords.push(val);
+      state.score += val.length * 10;
+      document.getElementById('live-score').textContent = state.score;
+
+      feedbackEl.className = 'text-sm font-bold mb-4 text-emerald-600';
+      feedbackEl.textContent = `✓ Great! "${val}" accepted (+${val.length * 10} pts)`;
+
+      inputEl.value = '';
+      updateFoundWordsUI();
+    }
+
+    function updateFoundWordsUI() {
+      const listEl = document.getElementById('wb-found-list');
+      const countEl = document.getElementById('wb-found-count');
+      if (!listEl || !countEl) return;
+
+      countEl.textContent = state.wbFoundWords.length;
+      if (state.wbFoundWords.length === 0) {
+        listEl.innerHTML = `<span class="text-slate-400 text-xs italic">No words found yet. Start typing above!</span>`;
+      } else {
+        listEl.innerHTML = state.wbFoundWords.map(w => `
+          <span class="px-3 py-1 rounded-xl bg-emerald-100 text-emerald-800 font-bold text-xs shadow-sm">
+            ${w} (${w.length} letters)
+          </span>
+        `).join('');
+      }
+    }
+
+    function showWordBuilderResults() {
+      if (state.wbTimer) {
+        clearInterval(state.wbTimer);
+        state.wbTimer = null;
+      }
+
+      const game = GAMES.find(g => g.id === state.currentGameId);
+      const level = LEVELS.find(l => l.id === state.currentLevelId);
+
+      document.getElementById('res-badge').textContent = `${game.title} • ${level.name}`;
+      document.getElementById('res-score').textContent = `${state.wbFoundWords.length} Words`;
+      document.getElementById('res-percent').textContent = `${state.score} Total Points`;
+
+      document.getElementById('res-heading').textContent = 'Challenge Time Expired!';
+      document.getElementById('res-sub').textContent = `You successfully found ${state.wbFoundWords.length} valid words in 1.5 minutes.`;
+
+      document.getElementById('res-counts').innerHTML = `
+        <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">✓ ${state.wbFoundWords.length} Words Found</span>
+        <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-800">⭐ ${state.score} Points</span>
+      `;
+
+      document.getElementById('review-section-title').textContent = 'Your Discovered Words Summary';
+      document.getElementById('review-section-sub').textContent = 'Here are all the valid words you built during the 1.5-minute challenge.';
+
+      const reviewList = document.getElementById('review-list');
+      if (state.wbFoundWords.length === 0) {
+        reviewList.innerHTML = `
+          <div class="text-center py-8 text-slate-400 italic">
+            No words were entered during this session. Give it another try!
+          </div>
+        `;
+      } else {
+        reviewList.innerHTML = `
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            ${state.wbFoundWords.map((w, i) => `
+              <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-center">
+                <div class="text-xs font-bold text-emerald-600 mb-1">#${i + 1}</div>
+                <div class="font-extrabold text-auis-blue text-base">${w}</div>
+                <div class="text-[11px] text-slate-500">${w.length} letters • +${w.length * 10} pts</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      navigateTo('results');
     }
 
     function renderCurrentQuestion() {
