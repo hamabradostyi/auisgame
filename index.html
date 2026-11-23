@@ -48,37 +48,89 @@
       font-weight: 700;
     }
 
+    /* Smooth Entrance Transitions for Welcome Page Elements */
+    @keyframes slideUpFade {
+      0% {
+        opacity: 0;
+        transform: translateY(28px) scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes slowZoomBg {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.07);
+      }
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes pulseGold {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5); }
-      50% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.55); }
+      50% { box-shadow: 0 0 0 14px rgba(212, 175, 55, 0); }
     }
 
     .animate-fade-in {
       animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    .btn-gold-glow {
-      animation: pulseGold 2.5s infinite;
+    /* Staggered Transitions for Welcome Screen */
+    .welcome-item-1 {
+      opacity: 0;
+      animation: slideUpFade 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .welcome-item-1:hover {
+      transform: translateY(-4px) scale(1.02);
     }
 
-    /* Welcome Screen Background Image + Transparent Dark Blue Overlay */
-    .welcome-hero-wrapper {
-      position: relative;
-      /* ناوی فایلی وێنەکەت لێرە دابنێ یان بیگۆڕە بە campus-bg.jpg */
-      background-image: url('campus-bg.jpg');
+    .welcome-item-2 {
+      opacity: 0;
+      animation: slideUpFade 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+      transition: transform 0.4s ease, letter-spacing 0.4s ease;
+    }
+    .welcome-item-2:hover {
+      letter-spacing: 0.02em;
+    }
+
+    .welcome-item-3 {
+      opacity: 0;
+      animation: slideUpFade 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+      transition: transform 0.4s ease;
+    }
+
+    .welcome-item-4 {
+      opacity: 0;
+      animation: slideUpFade 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards, pulseGold 2.5s infinite 1.5s;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .welcome-item-5 {
+      opacity: 0;
+      animation: slideUpFade 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Welcome Screen Background Image + Faint Overlay */
+    .welcome-bg-image {
+      background-image: url('https://archive.auis.edu.krd/sites/default/files/AUIS-at-sunset-header.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-color: #051329;
+      animation: slowZoomBg 22s ease-in-out infinite alternate;
     }
 
     .welcome-hero-overlay {
-      background: linear-gradient(135deg, rgba(5, 19, 41, 0.68) 0%, rgba(2, 10, 23, 0.78) 100%);
+      background: linear-gradient(135deg, rgba(5, 19, 41, 0.65) 0%, rgba(2, 10, 23, 0.75) 100%);
     }
 
     /* Dark Blue Gradient for Results Banner */
@@ -105,19 +157,23 @@
 <body class="min-h-screen flex flex-col text-slate-800 selection:bg-auis-gold selection:text-auis-blue">
 
   <!-- ==================== 1. WELCOME SPLASH SCREEN ==================== -->
-  <section id="welcome-screen" class="welcome-hero-wrapper min-h-screen flex flex-col items-center justify-center text-white relative overflow-hidden">
-    <!-- Transparent Dark Blue Layer over the large background image -->
+  <section id="welcome-screen" class="bg-auis-blue min-h-screen flex flex-col items-center justify-center text-white relative overflow-hidden">
+    <!-- Large Faint AUIS Sunset Image Behind Dark Blue Overlay -->
+    <div class="welcome-bg-image absolute inset-0 w-full h-full pointer-events-none"></div>
+    
+    <!-- Transparent Dark Blue Overlay -->
     <div class="welcome-hero-overlay absolute inset-0 w-full h-full flex flex-col items-center justify-center px-4 py-10">
       
       <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full border border-auis-gold/20 pointer-events-none"></div>
       <div class="absolute -bottom-32 -right-32 w-[28rem] h-[28rem] rounded-full border-2 border-auis-gold/15 pointer-events-none"></div>
 
-      <div class="max-w-3xl w-full text-center z-10 animate-fade-in flex flex-col items-center">
-        <div class="bg-white/95 backdrop-blur-md px-6 py-4 sm:px-10 sm:py-5 rounded-2xl shadow-2xl border-2 border-auis-gold mb-10 inline-flex items-center justify-center max-w-full">
+      <div class="max-w-3xl w-full text-center z-10 flex flex-col items-center">
+        <!-- Logo Box with Transition -->
+        <div class="welcome-item-1 bg-white/95 backdrop-blur-md px-6 py-4 sm:px-10 sm:py-5 rounded-2xl shadow-2xl border-2 border-auis-gold mb-10 inline-flex items-center justify-center max-w-full cursor-default">
           <img 
             src="https://www.aaicu.org/wp-content/uploads/2024/11/AUIS-trilingual-logo-2-1024x103.png" 
             alt="American University of Iraq, Sulaimani (AUIS) Logo" 
-            class="h-10 sm:h-14 md:h-16 w-auto object-contain"
+            class="h-10 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-500 hover:scale-105"
             onerror="this.style.display='none'; document.getElementById('logo-fallback').classList.remove('hidden');"
           />
           <div id="logo-fallback" class="hidden text-auis-blue font-bold text-xl sm:text-2xl tracking-wider">
@@ -125,23 +181,27 @@
           </div>
         </div>
 
-        <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white mb-5 drop-shadow-lg">
+        <!-- Welcome Title with Transition -->
+        <h1 class="welcome-item-2 font-serif text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white mb-5 drop-shadow-lg">
           Welcome
         </h1>
 
-        <div class="heading-font text-auis-goldBright font-serif text-xl sm:text-2xl md:text-3xl font-bold tracking-wide leading-snug mb-10 drop-shadow">
-          <div>Learn Today</div>
-          <div>Lead Tomorrow</div>
+        <!-- Slogan with Transition -->
+        <div class="welcome-item-3 heading-font text-auis-goldBright font-serif text-xl sm:text-2xl md:text-3xl font-bold tracking-wide leading-snug mb-10 drop-shadow">
+          <div class="transition-transform duration-300 hover:scale-105">Learn Today</div>
+          <div class="transition-transform duration-300 hover:scale-105">Lead Tomorrow</div>
         </div>
 
+        <!-- Start Button with Transition -->
         <button 
           onclick="navigateTo('menu')" 
-          class="btn-gold-glow group relative inline-flex items-center justify-center bg-gradient-to-r from-auis-gold to-auis-goldBright hover:from-auis-goldBright hover:to-auis-gold text-auis-navy font-black text-lg sm:text-xl px-12 py-4 rounded-2xl shadow-xl transition-all duration-300 transform hover:-translate-y-1 active:scale-95 cursor-pointer"
+          class="welcome-item-4 group relative inline-flex items-center justify-center bg-gradient-to-r from-auis-gold to-auis-goldBright hover:from-auis-goldBright hover:to-auis-gold text-auis-navy font-black text-lg sm:text-xl px-12 py-4 rounded-2xl shadow-xl transform hover:-translate-y-1.5 hover:scale-105 active:scale-95 cursor-pointer"
         >
           <span>Start</span>
         </button>
 
-        <p class="mt-12 text-xs sm:text-sm text-slate-200 font-normal tracking-wide drop-shadow">
+        <!-- Developer Credit with Transition -->
+        <p class="welcome-item-5 mt-12 text-xs sm:text-sm text-slate-200 font-normal tracking-wide drop-shadow hover:text-auis-goldBright">
           Developed : Muhammad Bradosti
         </p>
       </div>
@@ -386,23 +446,23 @@
     const WORD_BUILDER_BANK = {
       foundation: {
         letters: ['A', 'C', 'E', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W', 'Y', 'B', 'D'],
-        validWords: ['CAT', 'DOG', 'PEN', 'BOOK', 'HAT', 'CUP', 'DESK', 'MILK', 'WATER', 'PLAY', 'SCHOOL', 'TEACH', 'HAPPY', 'LEARN', 'STUDY', 'FRIEND', 'APPLE', 'BREAD', 'TABLE', 'HOUSE']
+        validWords: ['CAT', 'DOG', 'PEN', 'BOOK', 'LOOK', 'COOK', 'HAT', 'CUP', 'DESK', 'MILK', 'WATER', 'PLAY', 'SCHOOL', 'TEACH', 'HAPPY', 'LEARN', 'STUDY', 'FRIEND', 'APPLE', 'BREAD', 'TABLE', 'HOUSE']
       },
       level1: {
         letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W'],
-        validWords: ['PLANT', 'GARDEN', 'SPRING', 'FLOWER', 'WATER', 'BRIGHT', 'SUMMER', 'HARVEST', 'GROW', 'SEED', 'SOIL', 'GREEN', 'HEALTH', 'COMMUNITY', 'STUDENT', 'CORNER', 'TOMATO', 'MINT']
+        validWords: ['PLANT', 'GARDEN', 'SPRING', 'FLOWER', 'WATER', 'BRIGHT', 'SUMMER', 'HARVEST', 'GROW', 'SEED', 'SOIL', 'GREEN', 'HEALTH', 'STUDENT', 'CORNER', 'TOMATO', 'MINT', 'TREE', 'GOOD', 'FOOD']
       },
       level2: {
         letters: ['A', 'C', 'E', 'I', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'V', 'E', 'G', 'D', 'U', 'B'],
-        validWords: ['SYSTEM', 'ENERGY', 'FUTURE', 'PLANET', 'CLIMATE', 'RESOURCE', 'GLOBAL', 'ACTION', 'IMPACT', 'NATURE', 'OCEAN', 'FOREST', 'CARBON', 'BALANCE', 'PROTECT', 'SOLAR', 'WIND', 'CLEAN']
+        validWords: ['SYSTEM', 'ENERGY', 'FUTURE', 'PLANET', 'CLIMATE', 'GLOBAL', 'ACTION', 'IMPACT', 'NATURE', 'OCEAN', 'FOREST', 'CARBON', 'BALANCE', 'PROTECT', 'SOLAR', 'WIND', 'CLEAN', 'GREEN']
       },
       level3: {
         letters: ['A', 'C', 'E', 'I', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'X', 'Y', 'G', 'D', 'U', 'B'],
-        validWords: ['ANALYZE', 'COMPLEX', 'STRATEGY', 'THEORY', 'METHOD', 'CONTEXT', 'PATTERN', 'INSIGHT', 'FACTOR', 'EVALUATE', 'PROCESS', 'RESEARCH', 'VARIABLE', 'CRITICAL', 'LOGIC', 'SYSTEM', 'EVIDENCE', 'MODEL']
+        validWords: ['ANALYZE', 'COMPLEX', 'THEORY', 'METHOD', 'CONTEXT', 'PATTERN', 'INSIGHT', 'FACTOR', 'PROCESS', 'LOGIC', 'SYSTEM', 'MODEL', 'CLASSIC', 'SUCCESS']
       },
       level4: {
         letters: ['A', 'C', 'E', 'H', 'I', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'G', 'D', 'Y'],
-        validWords: ['PARADIGM', 'INNOVATE', 'ACADEMIC', 'DISCOURSE', 'INTEGRATE', 'SYNTHESIS', 'EMPIRICAL', 'SOCIOLOGY', 'THEOLOGY', 'PHILOSOPHY', 'UNIVERSITY', 'INSTITUTE', 'PROFESSOR', 'SCHOLAR', 'DOCTORATE', 'RESEARCH', 'CURRICULUM', 'SYLLABUS']
+        validWords: ['ACADEMIC', 'THEORY', 'SCHOLAR', 'CAMPUS', 'DEGREE', 'HONORS', 'THESIS', 'ETHICS', 'CULTURE', 'HISTORY', 'SCIENCE', 'POLITICS', 'SOCIETY', 'ECONOMY']
       }
     };
 
@@ -1026,7 +1086,7 @@
             Word Builder Challenge (18 Letters)
           </span>
           <p class="text-slate-600 text-sm mb-6">
-            You have 1.5 minutes to make as many words as you can from 18 letters. The words must be between 3 and 7 letters long. You can only use each letter once per word.
+            You have 1.5 minutes to make as many words as you can from the 18 letters below. Words must be between 3 and 7 letters long (double letters allowed!).
           </p>
 
           <div class="p-5 rounded-2xl bg-auis-offwhite border-2 border-auis-blue/20 mb-6">
@@ -1048,7 +1108,7 @@
                 autocomplete="off"
                 autocapitalize="characters"
                 spellcheck="false"
-                placeholder="Type a 3-7 letter word..."
+                placeholder="Type a 3-7 letter word (e.g. LOOK)..."
                 class="flex-grow text-center text-xl font-bold uppercase tracking-wider text-auis-blue px-5 py-3.5 rounded-2xl border-2 border-slate-300 focus:border-auis-gold focus:outline-none shadow-sm"
                 required
               />
@@ -1097,6 +1157,14 @@
 
       if (!val) return;
 
+      // Ensure only English letters A-Z
+      if (!/^[A-Z]+$/.test(val)) {
+        feedbackEl.className = 'text-sm font-bold mb-4 text-red-600';
+        feedbackEl.textContent = '❌ Please enter English letters only!';
+        inputEl.value = '';
+        return;
+      }
+
       if (val.length < 3 || val.length > 7) {
         feedbackEl.className = 'text-sm font-bold mb-4 text-red-600';
         feedbackEl.textContent = '❌ Word must be between 3 and 7 letters long!';
@@ -1111,14 +1179,11 @@
         return;
       }
 
-      const availableLetters = [...state.wbLettersData.letters];
+      // Check that every letter in the word exists in the 18 available letters (allows double letters like LOOK, COOK)
+      const availableSet = new Set(state.wbLettersData.letters);
       let valid = true;
       for (let i = 0; i < val.length; i++) {
-        const char = val[i];
-        const idx = availableLetters.indexOf(char);
-        if (idx > -1) {
-          availableLetters.splice(idx, 1);
-        } else {
+        if (!availableSet.has(val[i])) {
           valid = false;
           break;
         }
@@ -1126,7 +1191,7 @@
 
       if (!valid) {
         feedbackEl.className = 'text-sm font-bold mb-4 text-red-600';
-        feedbackEl.textContent = '❌ Invalid word or used letters not available in the 18 list!';
+        feedbackEl.textContent = '❌ Word contains letters not in the 18-letter list!';
         inputEl.value = '';
         return;
       }
